@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <RootNamespace>CustomCode.Domain.Imaging</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>True</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <PackageId>CustomCode.Domain.Imaging</PackageId>
+    <PackageVersion>1.0.0-alpha.1</PackageVersion>
+    <Title>Imaging library for c#.</Title>
+    <Authors>CustomCode</Authors>
+    <Company>CustomCode</Company>
+    <Description>Imaging library for c#.</Description>
+    <Copyright>Copyright @ 2018</Copyright>
+    <PackageLicenseUrl>https://github.com/git-custom-code/Domain-Imaging/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/git-custom-code/Domain-Imaging</PackageProjectUrl>
+    <PackageTags>C#, Imaging</PackageTags>
+    <RepositoryUrl>https://github.com/git-custom-code/Domain-Imaging</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
+    <Compile Include="..\Shared\SharedAssemblyVersion.cs" Link="Properties\SharedAssemblyVersion.cs" />
+  </ItemGroup>
+
+</Project>
