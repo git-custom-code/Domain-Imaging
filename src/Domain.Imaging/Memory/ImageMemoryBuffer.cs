@@ -9,7 +9,7 @@ namespace CustomCode.Domain.Imaging.Memory
     /// - data can be stored with 1 - 4 color channels (monochrome, gray, gray alpha, rgb or rgba) per pixel
     /// - data can be aligned at none, 16bit or 32bit boundaries to benefit from memory burst read mode.
     /// </remarks>
-    public sealed class ImageMemoryBuffer
+    public sealed class ImageMemoryBuffer : IImageMemoryBuffer
     {
         #region Dependencies
 
@@ -91,7 +91,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the buffer's size in bytes.
         /// </summary>
-        public ulong Length
+        public ulong Count
         {
             get { return (ulong)Data.LongLength; }
         }
@@ -104,12 +104,12 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the number of bytes per color channel per aligned (padded with zeros to match the alignment criteria) image row. 
         /// </summary>
-        private uint SizePerAlignedRow { get; }
+        public uint SizePerAlignedRow { get; }
 
         /// <summary>
         /// Gets the number of bytes per color channel.
         /// </summary>
-        public uint SizePerChannel { get; }
+        public ulong SizePerChannel { get; }
 
         /// <summary>
         /// Gets the number of bytes per pixel.
@@ -136,6 +136,14 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Logic
 
         /// <summary>
+        /// Converts a <see cref="ImageMemoryBuffer"/> to a byte array.
+        /// </summary>
+        public byte[] AsArray()
+        {
+            return Data;
+        }
+
+        /// <summary>
         /// Creates a human readable string representation of this instance.
         /// </summary>
         /// <returns> A human readable string representation of this instance. </returns>
@@ -160,15 +168,6 @@ namespace CustomCode.Domain.Imaging.Memory
             }
 
             return $"Alignment: {Alignment}, Color Channels: {ColorChannels}, Precision: {Precision}, Size: {length}{unit}";
-        }
-
-        /// <summary>
-        /// Converts a <see cref="ImageMemoryBuffer"/> to a byte array.
-        /// </summary>
-        /// <param name="buffer"> The buffer to be converted. </param>
-        public static implicit operator byte[] (ImageMemoryBuffer buffer)
-        {
-            return buffer.Data;
         }
 
         #endregion
