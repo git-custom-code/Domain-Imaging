@@ -1,0 +1,124 @@
+namespace CustomCode.Domain.Imaging.Memory
+{
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
+
+    /// <summary>
+    /// Implementation for an image color channel row that allow acces to single color values.
+    /// </summary>
+    /// <typeparam name="T"> The color channel row's precision. </typeparam>
+    public sealed class ColorChannelRow<T> : IColorChannelRow<T>
+        where T : struct, IComparable, IConvertible, IFormattable
+    {
+        #region Dependencies
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="IColorChannelRow{T}"/> type.
+        /// </summary>
+        /// <param name="channelIndex"> The index of the associated <see cref="IColorChannel{T}"/>. </param>
+        /// <param name="rowIndex"> The row's index. </param>
+        /// <param name="buffer"> The associated memory buffer that contains the image's pixel data. </param>
+        public ColorChannelRow(byte channelIndex, uint rowIndex, IImageMemoryBuffer buffer)
+        {
+            Buffer = buffer;
+            ChannelIndex = channelIndex;
+            RowIndex = rowIndex;
+            Count = buffer.SizePerAlignedRow - buffer.Stride;
+        }
+
+        #endregion
+
+        #region Data
+
+        /// <summary>
+        /// Gets the associated memory buffer that contains the image's pixel data.
+        /// </summary>
+        private IImageMemoryBuffer Buffer { get; }
+
+        /// <summary>
+        /// Gets the index of the associated <see cref="IColorChannel{T}"/>.
+        /// </summary>
+        private byte ChannelIndex { get; }
+
+        /// <summary>
+        /// Gets the number of stored pixel values.
+        /// </summary>
+        public uint Count { get; }
+
+        /// <summary>
+        /// Gets the row's index.
+        /// </summary>
+        private uint RowIndex { get; }
+
+        #endregion
+
+        #region Logic
+
+        /// <summary>
+        /// Gets the color value at the specified <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index"> The color value's index. </param>
+        /// <returns> The color value at the specified <paramref name="index"/>. </returns>
+        public T this[uint index]
+        {
+            get
+            {
+                var start = (int)(ChannelIndex * Buffer.SizePerChannel + RowIndex * Buffer.SizePerAlignedRow);
+                var length = (int)Buffer.SizePerChannel;
+                var rowMemory = new Memory<byte>(Buffer.AsArray(), start, length);
+                var span = MemoryMarshal.Cast<byte, T>(rowMemory.Span);
+                return span[(int)index];
+            }
+        }
+
+        /// <summary>
+        /// Convert the channel to a <see cref="Span{TType}"/>.
+        /// </summary>
+        /// <returns> A <see cref="Span{TType}"/>, i.e. a "managed pointer" to the channel. </returns>
+        public Span<TType> AsSpan<TType>(bool ignoreStride = true)
+            where TType : struct, IComparable, IConvertible, IFormattable
+        {
+            var start = (int)(ChannelIndex * Buffer.SizePerChannel + RowIndex * Buffer.SizePerAlignedRow);
+            var length = (int)Buffer.SizePerAlignedRow;
+            if (ignoreStride == false)
+            {
+                length -= Buffer.Stride;
+            }
+            var memory = new Memory<byte>(Buffer.AsArray(), start, length);
+            return MemoryMarshal.Cast<byte, TType>(memory.Span);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new ColorChannelRowEnumerator<T>(ChannelIndex, RowIndex, Buffer);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Creates a human readable string representation of this instance.
+        /// </summary>
+        /// <returns> A human readable string representation of this instance. </returns>
+        public override string ToString()
+        {
+            return $"Row {RowIndex}: {Count} pixels";
+        }
+
+        #endregion
+    }
+}
