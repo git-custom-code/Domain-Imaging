@@ -19,13 +19,9 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <param name="buffer"> The image memory buffer that contains the color channel/pixe. data. </param>
         public ColorChannelCollection(IImageMemoryBuffer buffer)
         {
-            byte index = 0;
-            for (var i = 0ul; i < buffer.Count; i += buffer.SizePerChannel)
-            {
-                Channels.Add(new ColorChannel<T>(index, buffer));
-                ++index;
-            }
-            Count = index;
+            Buffer = buffer;
+            Channels = new Lazy<List<IColorChannel<T>>>(BuildChannels, true);
+            Count = (byte)(buffer.Count / buffer.SizePerChannel);
         }
 
         #endregion
@@ -37,18 +33,23 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         /// <param name="index"> The color channel's index. </param>
         /// <returns> The <see cref="ColorChannel{T}"/> at the specified <paramref name="index"/>. </returns>
-        public ColorChannel<T> this[byte index]
+        public IColorChannel<T> this[byte index]
         {
             get
             {
-                return Channels[(int)index];
+                return Channels.Value[index];
             }
         }
 
         /// <summary>
+        /// Gets the associated memory buffer that contains the image's pixel data.
+        /// </summary>
+        private IImageMemoryBuffer Buffer { get; }
+
+        /// <summary>
         /// Gets the internal collection of <see cref="ColorChannel{T}"/>s.
         /// </summary>
-        private List<ColorChannel<T>> Channels { get; } = new List<ColorChannel<T>>();
+        private Lazy<List<IColorChannel<T>>> Channels { get; }
 
         /// <summary>
         /// Gets the number of <see cref="ColorChannel{T}"/> within the collection.
@@ -60,12 +61,30 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Logic
 
         /// <summary>
+        /// Build the internal <see cref="ColorChannel{T}"/> collection.
+        /// </summary>
+        /// <returns> The internal <see cref="ColorChannel{T}"/> collection. </returns>
+        private List<IColorChannel<T>> BuildChannels()
+        {
+            var result = new List<IColorChannel<T>>();
+            byte index = 0;
+
+            for (var i = 0ul; i < Buffer.Count; i += Buffer.SizePerChannel)
+            {
+                result.Add(new ColorChannel<T>(index, Buffer));
+                ++index;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns> An enumerator that can be used to iterate through the collection. </returns>
-        public IEnumerator<ColorChannel<T>> GetEnumerator()
+        public IEnumerator<IColorChannel<T>> GetEnumerator()
         {
-            foreach (var channel in Channels)
+            foreach (var channel in Channels.Value)
             {
                 yield return channel;
             }
