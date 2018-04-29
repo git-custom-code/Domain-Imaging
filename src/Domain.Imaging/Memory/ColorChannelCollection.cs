@@ -5,9 +5,9 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Collections.Generic;
 
     /// <summary>
-    /// A collection that grants easy acces to the <see cref="ColorChannel{T}"/>s of an <see cref="ImageMemoryBuffer"/>.
+    /// A collection that grants easy acces to the <see cref="IColorChannel{T}"/>s of an <see cref="ImageMemoryBuffer"/>.
     /// </summary>
-    /// <typeparam name="T"> The precision of a <see cref="ColorChannel{T}"/> entry. </typeparam>
+    /// <typeparam name="T"> The precision of a <see cref="IColorChannel{T}"/> entry. </typeparam>
     public sealed class ColorChannelCollection<T> : IColorChannelCollection<T>
         where T : struct, IComparable, IConvertible, IFormattable
     {
@@ -29,10 +29,10 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Data
 
         /// <summary>
-        /// Gets the <see cref="ColorChannel{T}"/> at the specified <paramref name="index"/>.
+        /// Gets the <see cref="IColorChannel{T}"/> at the specified <paramref name="index"/>.
         /// </summary>
         /// <param name="index"> The color channel's index. </param>
-        /// <returns> The <see cref="ColorChannel{T}"/> at the specified <paramref name="index"/>. </returns>
+        /// <returns> The <see cref="IColorChannel{T}"/> at the specified <paramref name="index"/>. </returns>
         public IColorChannel<T> this[byte index]
         {
             get
@@ -47,12 +47,12 @@ namespace CustomCode.Domain.Imaging.Memory
         private IImageMemoryBuffer Buffer { get; }
 
         /// <summary>
-        /// Gets the internal collection of <see cref="ColorChannel{T}"/>s.
+        /// Gets the internal collection of <see cref="IColorChannel{T}"/>s.
         /// </summary>
         private Lazy<List<IColorChannel<T>>> Channels { get; }
 
         /// <summary>
-        /// Gets the number of <see cref="ColorChannel{T}"/> within the collection.
+        /// Gets the number of <see cref="IColorChannel{T}"/> within the collection.
         /// </summary>
         public byte Count { get; }
 
@@ -61,9 +61,9 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Logic
 
         /// <summary>
-        /// Build the internal <see cref="ColorChannel{T}"/> collection.
+        /// Build the internal <see cref="IColorChannel{T}"/> collection.
         /// </summary>
-        /// <returns> The internal <see cref="ColorChannel{T}"/> collection. </returns>
+        /// <returns> The internal <see cref="IColorChannel{T}"/> collection. </returns>
         private List<IColorChannel<T>> BuildChannels()
         {
             var result = new List<IColorChannel<T>>();
