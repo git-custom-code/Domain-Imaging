@@ -85,15 +85,10 @@ namespace CustomCode.Domain.Imaging.Memory
         private List<IColorChannelRow<T>> BuildRows()
         {
             var result = new List<IColorChannelRow<T>>();
-            byte index = 0;
-
-            var offset = Buffer.SizePerChannel * Index;
             for (var i = 0u; i < RowCount; ++i)
             {
-                result.Add(new ColorChannelRow<T>(Index, index, Buffer));
-                offset += Buffer.SizePerAlignedRow;
+                result.Add(new ColorChannelRow<T>(Index, i, Buffer));
             }
-
             return result;
         }
 
