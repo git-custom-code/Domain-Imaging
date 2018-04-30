@@ -3,7 +3,6 @@ namespace CustomCode.Domain.Imaging.Memory
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
 
     /// <summary>
     /// An <see cref="IEnumerator{T}"/> implementation over the color values of an <see cref="ColorChannelBitRow"/>
