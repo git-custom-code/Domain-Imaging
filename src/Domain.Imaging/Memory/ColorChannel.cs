@@ -9,7 +9,7 @@ namespace CustomCode.Domain.Imaging.Memory
     /// Implementation for image color channel that allow acces to single <see cref="IColorChannelRow{T}"/>s.
     /// </summary>
     /// <typeparam name="T"> The color channel's precision. </typeparam>
-    public sealed class ColorChannel<T> : IColorChannel<T>
+    public class ColorChannel<T> : IColorChannel<T>
         where T : struct, IComparable, IConvertible, IFormattable
     {
         #region Dependencies
@@ -44,12 +44,12 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the associated memory buffer that contains the image's pixel data.
         /// </summary>
-        private IImageMemoryBuffer Buffer { get; }
+        protected IImageMemoryBuffer Buffer { get; }
 
         /// <summary>
         /// Gets the channel's index related to the associated <paramref name="buffer"/>.
         /// </summary>
-        private byte Index { get; }
+        protected byte Index { get; }
 
         /// <summary>
         /// Gets the number of rows.
@@ -82,7 +82,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// Build the internal <see cref="IColorChannelRow{T}"/> collection.
         /// </summary>
         /// <returns> The internal <see cref="IColorChannelRow{T}"/> collection. </returns>
-        private List<IColorChannelRow<T>> BuildRows()
+        protected virtual List<IColorChannelRow<T>> BuildRows()
         {
             var result = new List<IColorChannelRow<T>>();
             for (var i = 0u; i < RowCount; ++i)
