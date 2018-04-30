@@ -89,17 +89,17 @@ namespace CustomCode.Domain.Imaging.Memory
         private byte[] Data { get; }
 
         /// <summary>
-        /// Gets the memory's size in bytes.
-        /// </summary>
-        public ulong Count
-        {
-            get { return (ulong)Data.LongLength; }
-        }
-
-        /// <summary>
         /// Gets the memory's precision, i.e. the number of bits per color channel per pixel.
         /// </summary>
         public MemoryPrecision Precision { get; }
+
+        /// <summary>
+        /// Gets the memory's size in bytes.
+        /// </summary>
+        public ulong Size
+        {
+            get { return (ulong)Data.LongLength; }
+        }
 
         /// <summary>
         /// Gets the number of bytes per color channel per aligned (padded with zeros to match the alignment criteria) image row. 

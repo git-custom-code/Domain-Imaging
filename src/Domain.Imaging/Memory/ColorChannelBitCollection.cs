@@ -30,7 +30,7 @@ namespace CustomCode.Domain.Imaging.Memory
             var result = new List<IColorChannel<Bit>>();
             byte index = 0;
 
-            for (var i = 0ul; i < Memory.Count; i += Memory.SizePerChannel)
+            for (var i = 0ul; i < Memory.Size; i += Memory.SizePerChannel)
             {
                 result.Add(new ColorChannelBit(index, Memory));
                 ++index;

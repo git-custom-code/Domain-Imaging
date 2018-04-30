@@ -13,7 +13,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the memory's size in bytes.
         /// </summary>
-        ulong Count { get; }
+        ulong Size { get; }
 
         /// <summary>
         /// Gets the number of bytes per color channel per aligned (padded with zeros to match the alignment criteria) image row. 

@@ -21,7 +21,7 @@ namespace CustomCode.Domain.Imaging.Memory
         {
             Memory = memory;
             Channels = new Lazy<List<IColorChannel<T>>>(BuildChannels, true);
-            Count = (byte)(Memory.Count / Memory.SizePerChannel);
+            Count = (byte)(Memory.Size / Memory.SizePerChannel);
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace CustomCode.Domain.Imaging.Memory
             var result = new List<IColorChannel<T>>();
             byte index = 0;
 
-            for (var i = 0ul; i < Memory.Count; i += Memory.SizePerChannel)
+            for (var i = 0ul; i < Memory.Size; i += Memory.SizePerChannel)
             {
                 result.Add(new ColorChannel<T>(index, Memory));
                 ++index;
