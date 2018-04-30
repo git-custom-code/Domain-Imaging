@@ -6,11 +6,9 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// An <see cref="IEnumerator{T}"/> implementation over the color values of an <see cref="IColorChannelRow{T}"/>
+    /// An <see cref="IEnumerator{T}"/> implementation over the color values of an <see cref="ColorChannelBitRow"/>
     /// </summary>
-    /// <typeparam name="T"> The associated color channel row's precision. </typeparam>
-    public class ColorChannelRowEnumerator<T> : IEnumerator<T>
-        where T : struct, IComparable, IConvertible, IFormattable
+    public class ColorChannelBitRowEnumerator : IEnumerator<Bit>
     {
         #region Dependencies
 
@@ -20,12 +18,12 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <param name="channelIndex"> The index of the associated <see cref="IColorChannel{T}"/>. </param>
         /// <param name="rowIndex"> The index of the associated <see cref="IColorChannelRow{T}"/>. </param>
         /// <param name="buffer"> The associated memory buffer that contains the image's pixel data. </param>
-        public ColorChannelRowEnumerator(byte channelIndex, uint rowIndex, IImageMemoryBuffer buffer)
+        public ColorChannelBitRowEnumerator(byte channelIndex, uint rowIndex, IImageMemoryBuffer buffer)
         {
             var start = (int)(channelIndex * buffer.SizePerChannel + rowIndex * buffer.SizePerAlignedRow);
             var length = (int)buffer.SizePerAlignedRow;
             Memory = new ReadOnlyMemory<byte>(buffer.AsArray(), start, length);
-            RowLength = buffer.SizePerAlignedRow - buffer.Stride;
+            RowLength = buffer.SizePerPixel;
         }
 
         #endregion
@@ -35,7 +33,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the element in the collection at the current position of the enumerator.
         /// </summary>
-        public T Current { get; private set; }
+        public Bit Current { get; private set; }
 
         /// <summary>
         /// Gets the element in the collection at the current position of the enumerator.
@@ -48,7 +46,7 @@ namespace CustomCode.Domain.Imaging.Memory
         private uint Index { get; set; }
 
         /// <summary>
-        /// Gets the associated <see cref="IColorChannelRow{T}"/> data.
+        /// Gets the associated <see cref="ColorChannelBitRow"/> data.
         /// </summary>
         private ReadOnlyMemory<byte> Memory { get; }
 
@@ -78,8 +76,11 @@ namespace CustomCode.Domain.Imaging.Memory
         {
             if (Index < RowLength)
             {
-                var span = MemoryMarshal.Cast<byte, T>(Memory.Span);
-                Current = span[(int)Index];
+                var byteIndex = (int)(Index / 8);
+                var bitIndex = (int)(Index - 8 * byteIndex);
+                var currentByte = Memory.Span[byteIndex];
+                var bitValue = (currentByte & (1 << bitIndex)) != 0;
+                Current = new Bit(bitValue);
                 ++Index;
                 return true;
             }
@@ -93,7 +94,7 @@ namespace CustomCode.Domain.Imaging.Memory
         public void Reset()
         {
             Index = 0;
-            Current = default(T);
+            Current = default(Bit);
         }
 
         #endregion
