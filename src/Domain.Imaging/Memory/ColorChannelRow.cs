@@ -9,13 +9,13 @@ namespace CustomCode.Domain.Imaging.Memory
     /// Implementation for an image color channel row that allow acces to single color values.
     /// </summary>
     /// <typeparam name="T"> The color channel row's precision. </typeparam>
-    public sealed class ColorChannelRow<T> : IColorChannelRow<T>
+    public class ColorChannelRow<T> : IColorChannelRow<T>
         where T : struct, IComparable, IConvertible, IFormattable
     {
         #region Dependencies
 
         /// <summary>
-        /// Creates a new instance of the <see cref="IColorChannelRow{T}"/> type.
+        /// Creates a new instance of the <see cref="ColorChannelRow{T}"/> type.
         /// </summary>
         /// <param name="channelIndex"> The index of the associated <see cref="IColorChannel{T}"/>. </param>
         /// <param name="rowIndex"> The row's index. </param>
@@ -35,22 +35,22 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the associated memory buffer that contains the image's pixel data.
         /// </summary>
-        private IImageMemoryBuffer Buffer { get; }
+        protected IImageMemoryBuffer Buffer { get; }
 
         /// <summary>
         /// Gets the index of the associated <see cref="IColorChannel{T}"/>.
         /// </summary>
-        private byte ChannelIndex { get; }
+        protected byte ChannelIndex { get; }
 
         /// <summary>
         /// Gets the number of stored pixel values.
         /// </summary>
-        public uint Count { get; }
+        public uint Count { get; protected set; }
 
         /// <summary>
         /// Gets the row's index.
         /// </summary>
-        private uint RowIndex { get; }
+        protected uint RowIndex { get; }
 
         #endregion
 
@@ -61,7 +61,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         /// <param name="index"> The color value's index. </param>
         /// <returns> The color value at the specified <paramref name="index"/>. </returns>
-        public T this[uint index]
+        public virtual T this[uint index]
         {
             get
             {
@@ -94,8 +94,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns> An enumerator that can be used to iterate through the collection. </returns>
-
-        public IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             return new ColorChannelRowEnumerator<T>(ChannelIndex, RowIndex, Buffer);
         }
@@ -104,7 +103,6 @@ namespace CustomCode.Domain.Imaging.Memory
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns> An enumerator that can be used to iterate through the collection. </returns>
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
