@@ -1,7 +1,7 @@
 namespace CustomCode.Domain.Imaging.Memory
 {
     /// <summary>
-    /// The precision of a single <see cref="ImageMemoryBuffer"/> entry in bit.
+    /// The precision of a single <see cref="ImageMemory"/> entry in bit.
     /// </summary>
     public enum MemoryPrecision : byte
     {

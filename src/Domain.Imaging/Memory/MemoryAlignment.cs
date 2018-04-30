@@ -1,15 +1,15 @@
 namespace CustomCode.Domain.Imaging.Memory
 {
     /// <summary>
-    /// The pixel row alignment (at 0, 4 or 8 byte boundaries) of a <see cref="ImageMemoryBuffer"/>.
+    /// The pixel row alignment (at 0, 4 or 8 byte boundaries) of a <see cref="ImageMemory"/>.
     /// </summary>
     public enum MemoryAlignment : byte
     {
-        /// <summary> Don't align buffer data rows. </summary>
+        /// <summary> Don't align memory data rows. </summary>
         None = 1,
-        /// <summary> Align a buffer data row at 4 byte boundaries. </summary>
+        /// <summary> Align a memory data row at 4 byte boundaries. </summary>
         At32Bit = 4,
-        /// <summary> Align a buffer data row at 8 byte boundaries. </summary>
+        /// <summary> Align a memory data row at 8 byte boundaries. </summary>
         At64Bit = 8
     }
 }

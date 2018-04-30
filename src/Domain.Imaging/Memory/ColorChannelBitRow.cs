@@ -15,11 +15,11 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         /// <param name="channelIndex"> The index of the associated <see cref="IColorChannel{T}"/>. </param>
         /// <param name="rowIndex"> The row's index. </param>
-        /// <param name="buffer"> The associated memory buffer that contains the image's pixel data. </param>
-        public ColorChannelBitRow(byte channelIndex, uint rowIndex, IImageMemoryBuffer buffer)
-            : base(channelIndex, rowIndex, buffer)
+        /// <param name="memory"> The associated memory that contains the image's pixel data. </param>
+        public ColorChannelBitRow(byte channelIndex, uint rowIndex, IImageMemory memory)
+            : base(channelIndex, rowIndex, memory)
         {
-            Count = buffer.SizePerPixel;
+            Count = memory.SizePerPixel;
         }
 
         #endregion
@@ -35,9 +35,9 @@ namespace CustomCode.Domain.Imaging.Memory
         {
             get
             {
-                var start = (int)(ChannelIndex * Buffer.SizePerChannel + RowIndex * Buffer.SizePerAlignedRow);
-                var length = (int)Buffer.SizePerAlignedRow;
-                var rowMemory = new ReadOnlyMemory<byte>(Buffer.AsArray(), start, length);
+                var start = (int)(ChannelIndex * Memory.SizePerChannel + RowIndex * Memory.SizePerAlignedRow);
+                var length = (int)Memory.SizePerAlignedRow;
+                var rowMemory = new ReadOnlyMemory<byte>(Memory.AsArray(), start, length);
                 var byteIndex = (int)(index / 8);
                 var bitIndex = (int)(index - 8 * byteIndex);
                 var currentByte = rowMemory.Span[byteIndex];
@@ -52,7 +52,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <returns> An enumerator that can be used to iterate through the collection. </returns>
         public override IEnumerator<Bit> GetEnumerator()
         {
-            return new ColorChannelBitRowEnumerator(ChannelIndex, RowIndex, Buffer);
+            return new ColorChannelBitRowEnumerator(ChannelIndex, RowIndex, Memory);
         }
 
         #endregion

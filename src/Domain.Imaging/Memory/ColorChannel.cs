@@ -17,13 +17,13 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Creates a new instance of the <see cref="ColorChannel{T}"/> type.
         /// </summary>
-        /// <param name="index"> The channel's index related to the associated <paramref name="buffer"/>. </param>
-        /// <param name="buffer"> The associated memory buffer that contains the image's pixel data. </param>
-        public ColorChannel(byte index, IImageMemoryBuffer buffer)
+        /// <param name="index"> The channel's index related to the associated <paramref name="memory"/>. </param>
+        /// <param name="memory"> The associated memory that contains the image's pixel data. </param>
+        public ColorChannel(byte index, IImageMemory memory)
         {
             Index = index;
-            Buffer = buffer;
-            RowCount = (uint)(buffer.SizePerChannel / buffer.SizePerAlignedRow);
+            Memory = memory;
+            RowCount = (uint)(memory.SizePerChannel / memory.SizePerAlignedRow);
             Rows = new Lazy<List<IColorChannelRow<T>>>(BuildRows, true);
         }
 
@@ -42,12 +42,12 @@ namespace CustomCode.Domain.Imaging.Memory
         }
 
         /// <summary>
-        /// Gets the associated memory buffer that contains the image's pixel data.
+        /// Gets the associated memory that contains the image's pixel data.
         /// </summary>
-        protected IImageMemoryBuffer Buffer { get; }
+        protected IImageMemory Memory { get; }
 
         /// <summary>
-        /// Gets the channel's index related to the associated <paramref name="buffer"/>.
+        /// Gets the channel's index related to the associated <see cref="Memory"/>.
         /// </summary>
         protected byte Index { get; }
 
@@ -72,9 +72,9 @@ namespace CustomCode.Domain.Imaging.Memory
         public Span<TType> AsSpan<TType>()
             where TType : struct, IComparable, IConvertible, IFormattable
         {
-            var start = (int)(Index * Buffer.SizePerChannel);
-            var length = (int)Buffer.SizePerAlignedRow;
-            var memory = new Memory<byte>(Buffer.AsArray(), start, length);
+            var start = (int)(Index * Memory.SizePerChannel);
+            var length = (int)Memory.SizePerAlignedRow;
+            var memory = new Memory<byte>(Memory.AsArray(), start, length);
             return MemoryMarshal.Cast<byte, TType>(memory.Span);
         }
 
@@ -87,7 +87,7 @@ namespace CustomCode.Domain.Imaging.Memory
             var result = new List<IColorChannelRow<T>>();
             for (var i = 0u; i < RowCount; ++i)
             {
-                result.Add(new ColorChannelRow<T>(Index, i, Buffer));
+                result.Add(new ColorChannelRow<T>(Index, i, Memory));
             }
             return result;
         }
@@ -119,15 +119,15 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <returns> A human readable string representation of this instance. </returns>
         public override string ToString()
         {
-            if (Buffer.ColorChannels == ColorChannels.Monochrome)
+            if (Memory.ColorChannels == ColorChannels.Monochrome)
             {
                 return $"Monochrome ({RowCount} rows)";
             }
-            else if (Buffer.ColorChannels == ColorChannels.Gray)
+            else if (Memory.ColorChannels == ColorChannels.Gray)
             {
                 return $"Gray ({RowCount} rows)";
             }
-            else if (Buffer.ColorChannels == ColorChannels.GrayAlpha)
+            else if (Memory.ColorChannels == ColorChannels.GrayAlpha)
             {
                 if (Index == 0)
                 {
@@ -135,7 +135,7 @@ namespace CustomCode.Domain.Imaging.Memory
                 }
                 return $"Alpha ({RowCount} rows)";
             }
-            else if (Buffer.ColorChannels == ColorChannels.Rgb)
+            else if (Memory.ColorChannels == ColorChannels.Rgb)
             {
                 if (Index == 0)
                 {

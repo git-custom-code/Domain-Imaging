@@ -5,7 +5,7 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Collections.Generic;
 
     /// <summary>
-    /// A collection that grants easy acces to the <see cref="IColorChannel{T}"/>s of an <see cref="ImageMemoryBuffer"/>.
+    /// A collection that grants easy acces to the <see cref="IColorChannel{T}"/>s of an <see cref="ImageMemory"/>.
     /// </summary>
     /// <typeparam name="T"> The precision of a <see cref="IColorChannel{T}"/> entry. </typeparam>
     public class ColorChannelCollection<T> : IColorChannelCollection<T>
@@ -16,12 +16,12 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Creates a new instance of the <see cref="ColorChannelCollection{T}"/> type.
         /// </summary>
-        /// <param name="buffer"> The image memory buffer that contains the color channel/pixe. data. </param>
-        public ColorChannelCollection(IImageMemoryBuffer buffer)
+        /// <param name="memory"> The image memory that contains the color channel/pixel data. </param>
+        public ColorChannelCollection(IImageMemory memory)
         {
-            Buffer = buffer;
+            Memory = memory;
             Channels = new Lazy<List<IColorChannel<T>>>(BuildChannels, true);
-            Count = (byte)(buffer.Count / buffer.SizePerChannel);
+            Count = (byte)(Memory.Count / Memory.SizePerChannel);
         }
 
         #endregion
@@ -42,9 +42,9 @@ namespace CustomCode.Domain.Imaging.Memory
         }
 
         /// <summary>
-        /// Gets the associated memory buffer that contains the image's pixel data.
+        /// Gets the associated memory that contains the image's pixel data.
         /// </summary>
-        protected IImageMemoryBuffer Buffer { get; }
+        protected IImageMemory Memory { get; }
 
         /// <summary>
         /// Gets the internal collection of <see cref="IColorChannel{T}"/>s.
@@ -69,9 +69,9 @@ namespace CustomCode.Domain.Imaging.Memory
             var result = new List<IColorChannel<T>>();
             byte index = 0;
 
-            for (var i = 0ul; i < Buffer.Count; i += Buffer.SizePerChannel)
+            for (var i = 0ul; i < Memory.Count; i += Memory.SizePerChannel)
             {
-                result.Add(new ColorChannel<T>(index, Buffer));
+                result.Add(new ColorChannel<T>(index, Memory));
                 ++index;
             }
 

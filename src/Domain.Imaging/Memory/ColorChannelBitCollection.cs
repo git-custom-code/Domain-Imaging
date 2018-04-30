@@ -12,9 +12,9 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Creates a new instance of the <see cref="ColorChannelBitCollection"/> type.
         /// </summary>
-        /// <param name="buffer"> The image memory buffer that contains the color channel/pixe. data. </param>
-        public ColorChannelBitCollection(IImageMemoryBuffer buffer)
-            : base(buffer)
+        /// <param name="memory"> The image memory that contains the color channel/pixe. data. </param>
+        public ColorChannelBitCollection(IImageMemory memory)
+            : base(memory)
         { }
 
         #endregion
@@ -30,9 +30,9 @@ namespace CustomCode.Domain.Imaging.Memory
             var result = new List<IColorChannel<Bit>>();
             byte index = 0;
 
-            for (var i = 0ul; i < Buffer.Count; i += Buffer.SizePerChannel)
+            for (var i = 0ul; i < Memory.Count; i += Memory.SizePerChannel)
             {
-                result.Add(new ColorChannelBit(index, Buffer));
+                result.Add(new ColorChannelBit(index, Memory));
                 ++index;
             }
 

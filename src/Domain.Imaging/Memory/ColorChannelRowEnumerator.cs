@@ -19,13 +19,13 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         /// <param name="channelIndex"> The index of the associated <see cref="IColorChannel{T}"/>. </param>
         /// <param name="rowIndex"> The index of the associated <see cref="IColorChannelRow{T}"/>. </param>
-        /// <param name="buffer"> The associated memory buffer that contains the image's pixel data. </param>
-        public ColorChannelRowEnumerator(byte channelIndex, uint rowIndex, IImageMemoryBuffer buffer)
+        /// <param name="memory"> The associated memory that contains the image's pixel data. </param>
+        public ColorChannelRowEnumerator(byte channelIndex, uint rowIndex, IImageMemory memory)
         {
-            var start = (int)(channelIndex * buffer.SizePerChannel + rowIndex * buffer.SizePerAlignedRow);
-            var length = (int)buffer.SizePerAlignedRow;
-            Memory = new ReadOnlyMemory<byte>(buffer.AsArray(), start, length);
-            RowLength = buffer.SizePerAlignedRow - buffer.Stride;
+            var start = (int)(channelIndex * memory.SizePerChannel + rowIndex * memory.SizePerAlignedRow);
+            var length = (int)memory.SizePerAlignedRow;
+            Memory = new ReadOnlyMemory<byte>(memory.AsArray(), start, length);
+            RowLength = memory.SizePerAlignedRow - memory.Stride;
         }
 
         #endregion

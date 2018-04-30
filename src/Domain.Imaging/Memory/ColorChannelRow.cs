@@ -19,13 +19,13 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         /// <param name="channelIndex"> The index of the associated <see cref="IColorChannel{T}"/>. </param>
         /// <param name="rowIndex"> The row's index. </param>
-        /// <param name="buffer"> The associated memory buffer that contains the image's pixel data. </param>
-        public ColorChannelRow(byte channelIndex, uint rowIndex, IImageMemoryBuffer buffer)
+        /// <param name="memory"> The associated memory that contains the image's pixel data. </param>
+        public ColorChannelRow(byte channelIndex, uint rowIndex, IImageMemory memory)
         {
-            Buffer = buffer;
+            Memory = memory;
             ChannelIndex = channelIndex;
             RowIndex = rowIndex;
-            Count = buffer.SizePerAlignedRow - buffer.Stride;
+            Count = Memory.SizePerAlignedRow - Memory.Stride;
         }
 
         #endregion
@@ -33,9 +33,9 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Data
 
         /// <summary>
-        /// Gets the associated memory buffer that contains the image's pixel data.
+        /// Gets the associated memory that contains the image's pixel data.
         /// </summary>
-        protected IImageMemoryBuffer Buffer { get; }
+        protected IImageMemory Memory { get; }
 
         /// <summary>
         /// Gets the index of the associated <see cref="IColorChannel{T}"/>.
@@ -65,9 +65,9 @@ namespace CustomCode.Domain.Imaging.Memory
         {
             get
             {
-                var start = (int)(ChannelIndex * Buffer.SizePerChannel + RowIndex * Buffer.SizePerAlignedRow);
-                var length = (int)Buffer.SizePerChannel;
-                var rowMemory = new Memory<byte>(Buffer.AsArray(), start, length);
+                var start = (int)(ChannelIndex * Memory.SizePerChannel + RowIndex * Memory.SizePerAlignedRow);
+                var length = (int)Memory.SizePerAlignedRow;
+                var rowMemory = new Memory<byte>(Memory.AsArray(), start, length);
                 var span = MemoryMarshal.Cast<byte, T>(rowMemory.Span);
                 return span[(int)index];
             }
@@ -80,13 +80,13 @@ namespace CustomCode.Domain.Imaging.Memory
         public Span<TType> AsSpan<TType>(bool ignoreStride = true)
             where TType : struct, IComparable, IConvertible, IFormattable
         {
-            var start = (int)(ChannelIndex * Buffer.SizePerChannel + RowIndex * Buffer.SizePerAlignedRow);
-            var length = (int)Buffer.SizePerAlignedRow;
+            var start = (int)(ChannelIndex * Memory.SizePerChannel + RowIndex * Memory.SizePerAlignedRow);
+            var length = (int)Memory.SizePerAlignedRow;
             if (ignoreStride == false)
             {
-                length -= Buffer.Stride;
+                length -= Memory.Stride;
             }
-            var memory = new Memory<byte>(Buffer.AsArray(), start, length);
+            var memory = new Memory<byte>(Memory.AsArray(), start, length);
             return MemoryMarshal.Cast<byte, TType>(memory.Span);
         }
 
@@ -96,7 +96,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <returns> An enumerator that can be used to iterate through the collection. </returns>
         public virtual IEnumerator<T> GetEnumerator()
         {
-            return new ColorChannelRowEnumerator<T>(ChannelIndex, RowIndex, Buffer);
+            return new ColorChannelRowEnumerator<T>(ChannelIndex, RowIndex, Memory);
         }
 
         /// <summary>

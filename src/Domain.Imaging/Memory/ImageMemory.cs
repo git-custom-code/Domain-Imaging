@@ -4,23 +4,23 @@ namespace CustomCode.Domain.Imaging.Memory
     /// Abstraction for a <see cref="byte"/> array that holds an image's pixel data.
     /// </summary>
     /// <remarks>
-    /// The pixel buffer supports the following:
+    /// The image memory supports the following:
     /// - data precision can be stored as 1bit, 8bit or 16bit per color channel per pixel
     /// - data can be stored with 1 - 4 color channels (monochrome, gray, gray alpha, rgb or rgba) per pixel
     /// - data can be aligned at none, 16bit or 32bit boundaries to benefit from memory burst read mode.
     /// </remarks>
-    public sealed class ImageMemoryBuffer : IImageMemoryBuffer
+    public sealed class ImageMemory : IImageMemory
     {
         #region Dependencies
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ImageMemoryBuffer"/> type.
+        /// Creates a new instance of the <see cref="ImageMemory"/> type.
         /// </summary>
-        /// <param name="dimension"> The buffer's dimensions (width and height). </param>
-        /// <param name="alignment"> The buffer's alignment (none, 32bit or 64bit). </param>
-        /// <param name="colorChannels"> The buffer's number of color channels (Monochrome, Grey, GreyAlpha, Rgb or Rgba). </param>
-        /// <param name="precision"> The buffer's precision per color channel per pixel (1bit, 8bit or 16bit). </param>
-        public ImageMemoryBuffer(
+        /// <param name="dimension"> The memory's dimensions (width and height). </param>
+        /// <param name="alignment"> The memory's alignment (none, 32bit or 64bit). </param>
+        /// <param name="colorChannels"> The memory's number of color channels (Monochrome, Grey, GreyAlpha, Rgb or Rgba). </param>
+        /// <param name="precision"> The memory's precision per color channel per pixel (1bit, 8bit or 16bit). </param>
+        public ImageMemory(
             Dimension dimension,
             MemoryAlignment alignment,
             ColorChannels colorChannels,
@@ -70,26 +70,26 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Data
 
         /// <summary>
-        /// Gets the buffer's alignment.
+        /// Gets the memory's alignment.
         /// </summary>
         /// <remarks>
-        /// Buffers can have no alignment at all or be aligned at 4 or 8 byte boundaries. If a buffer is aligned,
+        /// Image memory can have no alignment at all or be aligned at 4 or 8 byte boundaries. If memoryF is aligned,
         /// each row of an image is padded with zeros so that the length of the row is a multiple of 4 or 8.
         /// </remarks>
         public MemoryAlignment Alignment { get; }
 
         /// <summary>
-        /// Gets the buffer's number of color channels per pixel.
+        /// Gets the memory's number of color channels per pixel.
         /// </summary>
         public ColorChannels ColorChannels { get; }
 
         /// <summary>
-        /// Get the pixel buffer's raw data as byte array.
+        /// Get the memory's raw data as byte array.
         /// </summary>
         private byte[] Data { get; }
 
         /// <summary>
-        /// Gets the buffer's size in bytes.
+        /// Gets the memory's size in bytes.
         /// </summary>
         public ulong Count
         {
@@ -97,7 +97,7 @@ namespace CustomCode.Domain.Imaging.Memory
         }
 
         /// <summary>
-        /// Gets the buffer's precision, i.e. the number of bits per color channel per pixel.
+        /// Gets the memory's precision, i.e. the number of bits per color channel per pixel.
         /// </summary>
         public MemoryPrecision Precision { get; }
 
@@ -115,10 +115,10 @@ namespace CustomCode.Domain.Imaging.Memory
         /// Gets the number of bytes per pixel.
         /// </summary>
         /// <remarks>
-        /// Note that for monochrome buffers this field stores the number of bits per unaligned image row 
+        /// Note that for monochrome memory this field stores the number of bits per unaligned image row 
         /// instead of the number of bytes per pixel (this information would be lost otherwise).
         /// </remarks>
-        private uint SizePerPixel { get; }
+        public uint SizePerPixel { get; }
 
         /// <summary>
         /// Gets the number of bytes per color channel per image row.
@@ -129,14 +129,14 @@ namespace CustomCode.Domain.Imaging.Memory
         /// Gets the stride per color channel per image row.
         /// The stride is the "number of zero bytes" that are needed to align an image row at 4 or 8 byte boundaries.
         /// </summary>
-        private byte Stride { get; }
+        public byte Stride { get; }
 
         #endregion
 
         #region Logic
 
         /// <summary>
-        /// Converts a <see cref="ImageMemoryBuffer"/> to a byte array.
+        /// Converts a <see cref="ImageMemory"/> to a byte array.
         /// </summary>
         public byte[] AsArray()
         {
