@@ -8,7 +8,7 @@ namespace CustomCode.Domain.Imaging.Memory
     /// A collection that grants easy acces to the <see cref="IColorChannel{T}"/>s of an <see cref="ImageMemoryBuffer"/>.
     /// </summary>
     /// <typeparam name="T"> The precision of a <see cref="IColorChannel{T}"/> entry. </typeparam>
-    public sealed class ColorChannelCollection<T> : IColorChannelCollection<T>
+    public class ColorChannelCollection<T> : IColorChannelCollection<T>
         where T : struct, IComparable, IConvertible, IFormattable
     {
         #region Dependencies
@@ -44,7 +44,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the associated memory buffer that contains the image's pixel data.
         /// </summary>
-        private IImageMemoryBuffer Buffer { get; }
+        protected IImageMemoryBuffer Buffer { get; }
 
         /// <summary>
         /// Gets the internal collection of <see cref="IColorChannel{T}"/>s.
@@ -64,7 +64,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// Build the internal <see cref="IColorChannel{T}"/> collection.
         /// </summary>
         /// <returns> The internal <see cref="IColorChannel{T}"/> collection. </returns>
-        private List<IColorChannel<T>> BuildChannels()
+        protected virtual List<IColorChannel<T>> BuildChannels()
         {
             var result = new List<IColorChannel<T>>();
             byte index = 0;
