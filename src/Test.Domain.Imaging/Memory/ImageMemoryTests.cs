@@ -4,11 +4,11 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
     using Xunit;
 
     /// <summary>
-    /// Test cases for the <see cref="ImageMemoryBuffer"/> type.
+    /// Test cases for the <see cref="ImageMemory"/> type.
     /// </summary>
     [UnitTest]
     [Category("Memory")]
-    public sealed class ImageMemoryBufferTests : TestCase
+    public sealed class ImageMemoryTests : TestCase
     {
         #region 1bit
 
@@ -16,10 +16,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateMonochromeOneBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Monochrome, MemoryPrecision.OneBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Monochrome, MemoryPrecision.OneBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(33);
+                    memory.Size.Should().Be(33);
                 });
         }
 
@@ -27,10 +27,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateMonochromeOneBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Monochrome, MemoryPrecision.OneBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Monochrome, MemoryPrecision.OneBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(44);
+                    memory.Size.Should().Be(44);
                 });
         }
 
@@ -38,10 +38,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateMonochromeOneBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Monochrome, MemoryPrecision.OneBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Monochrome, MemoryPrecision.OneBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(88);
+                    memory.Size.Should().Be(88);
                 });
         }
 
@@ -55,10 +55,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayEightBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(187);
+                    memory.Size.Should().Be(187);
                 });
         }
 
@@ -66,10 +66,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayEightBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Gray, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Gray, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(220);
+                    memory.Size.Should().Be(220);
                 });
         }
 
@@ -77,10 +77,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayEightBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Gray, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Gray, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(264);
+                    memory.Size.Should().Be(264);
                 });
         }
 
@@ -92,10 +92,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayAlphaEightBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(374);
+                    memory.Size.Should().Be(374);
                 });
         }
 
@@ -103,10 +103,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayAlphaEightBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(440);
+                    memory.Size.Should().Be(440);
                 });
         }
 
@@ -114,10 +114,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayAlphaEightBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(528);
+                    memory.Size.Should().Be(528);
                 });
         }
 
@@ -129,10 +129,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbEightBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(561);
+                    memory.Size.Should().Be(561);
                 });
         }
 
@@ -140,10 +140,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbEightBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgb, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgb, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(660);
+                    memory.Size.Should().Be(660);
                 });
         }
 
@@ -151,10 +151,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbEightBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgb, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgb, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(792);
+                    memory.Size.Should().Be(792);
                 });
         }
 
@@ -166,10 +166,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbaEightBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(748);
+                    memory.Size.Should().Be(748);
                 });
         }
 
@@ -177,10 +177,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbaEightBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgba, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgba, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(880);
+                    memory.Size.Should().Be(880);
                 });
         }
 
@@ -188,10 +188,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbaEightBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgba, MemoryPrecision.EightBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgba, MemoryPrecision.EightBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1056);
+                    memory.Size.Should().Be(1056);
                 });
         }
 
@@ -207,10 +207,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGraySixteenBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(374);
+                    memory.Size.Should().Be(374);
                 });
         }
 
@@ -218,10 +218,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGraySixteenBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Gray, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Gray, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(396);
+                    memory.Size.Should().Be(396);
                 });
         }
 
@@ -229,10 +229,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGraySixteenBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Gray, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Gray, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(440);
+                    memory.Size.Should().Be(440);
                 });
         }
 
@@ -244,10 +244,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayAlphaSixteenBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(748);
+                    memory.Size.Should().Be(748);
                 });
         }
 
@@ -255,10 +255,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayAlphaSixteenBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(792);
+                    memory.Size.Should().Be(792);
                 });
         }
 
@@ -266,10 +266,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateGrayAlphaSixteenBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(880);
+                    memory.Size.Should().Be(880);
                 });
         }
 
@@ -281,10 +281,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbSixteenBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1122);
+                    memory.Size.Should().Be(1122);
                 });
         }
 
@@ -292,10 +292,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbSixteenBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1188);
+                    memory.Size.Should().Be(1188);
                 });
         }
 
@@ -303,10 +303,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbSixteenBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1320);
+                    memory.Size.Should().Be(1320);
                 });
         }
 
@@ -318,10 +318,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbaSixteenBitNoneBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1496);
+                    memory.Size.Should().Be(1496);
                 });
         }
 
@@ -329,10 +329,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbaSixteenBit32bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At32Bit, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1584);
+                    memory.Size.Should().Be(1584);
                 });
         }
 
@@ -340,10 +340,10 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateRgbaSixteenBit64bitBufferSuccessfully()
         {
             Given()
-            .When(() => new ImageMemoryBuffer((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
-            .Then(buffer =>
+            .When(() => new ImageMemory((17, 11), MemoryAlignment.At64Bit, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
+            .Then(memory =>
                 {
-                    buffer.Count.Should().Be(1760);
+                    memory.Size.Should().Be(1760);
                 });
         }
 
