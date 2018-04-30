@@ -73,7 +73,7 @@ namespace CustomCode.Domain.Imaging.Memory
             where TType : struct, IComparable, IConvertible, IFormattable
         {
             var start = (int)(Index * Buffer.SizePerChannel);
-            var length = (int)Buffer.SizePerChannel;
+            var length = (int)Buffer.SizePerAlignedRow;
             var memory = new Memory<byte>(Buffer.AsArray(), start, length);
             return MemoryMarshal.Cast<byte, TType>(memory.Span);
         }
