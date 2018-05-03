@@ -22,7 +22,7 @@ namespace CustomCode.Data.Imaging.Memory
 
         /// <summary>
         /// Gets the number of bytes per color channel.
-        /// </summary
+        /// </summary>
         uint SizePerChannel { get; }
 
         /// <summary>
