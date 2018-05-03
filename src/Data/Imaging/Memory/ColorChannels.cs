@@ -1,4 +1,4 @@
-namespace CustomCode.Domain.Imaging.Memory
+namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
     /// The number of used color channels per pixel of a <see cref="ImageMemory"/>.

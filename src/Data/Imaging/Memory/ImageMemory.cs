@@ -1,4 +1,4 @@
-namespace CustomCode.Domain.Imaging.Memory
+namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
     /// Abstraction for a <see cref="byte"/> array that holds an image's pixel data.
@@ -21,7 +21,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <param name="colorChannels"> The memory's number of color channels (Monochrome, Grey, GreyAlpha, Rgb or Rgba). </param>
         /// <param name="precision"> The memory's precision per color channel per pixel (1bit, 8bit or 16bit). </param>
         public ImageMemory(
-            Dimension dimension,
+            (uint width, uint height) dimension,
             MemoryAlignment alignment,
             ColorChannels colorChannels,
             MemoryPrecision precision)
@@ -35,16 +35,16 @@ namespace CustomCode.Domain.Imaging.Memory
             {
                 ColorChannels = ColorChannels.Monochrome;
                 Precision = MemoryPrecision.OneBit;
-                SizePerPixel = dimension.Width;
-                SizePerUnalignedRow = (uint)(dimension.Width / 8.0);
-                if (dimension.Width % 8 != 0)
+                SizePerPixel = dimension.width;
+                SizePerUnalignedRow = (uint)(dimension.width / 8.0);
+                if (dimension.width % 8 != 0)
                 {
                     ++SizePerUnalignedRow;
                 }
             }
             else
             {
-                SizePerUnalignedRow = dimension.Width * (uint)(Precision);
+                SizePerUnalignedRow = dimension.width * (uint)(Precision);
             }
 
             Stride = 0;
@@ -55,7 +55,7 @@ namespace CustomCode.Domain.Imaging.Memory
             }
 
             SizePerAlignedRow = SizePerUnalignedRow + Stride;
-            SizePerChannel = SizePerAlignedRow * dimension.Height;
+            SizePerChannel = SizePerAlignedRow * dimension.height;
 
             var dataCount = SizePerChannel;
             if (ColorChannels != ColorChannels.Monochrome)
@@ -96,9 +96,9 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the memory's size in bytes.
         /// </summary>
-        public ulong Size
+        public uint Size
         {
-            get { return (ulong)Data.LongLength; }
+            get { return (uint)Data.Length; }
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the number of bytes per color channel.
         /// </summary>
-        public ulong SizePerChannel { get; }
+        public uint SizePerChannel { get; }
 
         /// <summary>
         /// Gets the number of bytes per pixel.
@@ -149,19 +149,19 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <returns> A human readable string representation of this instance. </returns>
         public override string ToString()
         {
-            var length = Data.LongLength;
+            var length = Data.Length;
             var unit = "byte";
-            if (Data.LongLength > 1024 && Data.LongLength < 1024 * 1024)
+            if (Data.Length > 1024 && Data.Length < 1024 * 1024)
             {
                 length /= 1024;
                 unit = "kb";
             }
-            else if (Data.LongLength > 1024 * 1024 && Data.LongLength < 1024 * 1024 * 1024)
+            else if (Data.Length > 1024 * 1024 && Data.Length < 1024 * 1024 * 1024)
             {
                 length /= (1024 * 1024);
                 unit = "mb";
             }
-            else if (Data.LongLength > 1024 * 1024 * 1024)
+            else if (Data.Length > 1024 * 1024 * 1024)
             {
                 length /= (1024 * 1024 * 1024);
                 unit = "gb";

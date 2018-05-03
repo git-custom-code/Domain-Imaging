@@ -1,4 +1,4 @@
-namespace CustomCode.Domain.Imaging.Memory
+namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
     /// The precision of a single <see cref="ImageMemory"/> entry in bit.

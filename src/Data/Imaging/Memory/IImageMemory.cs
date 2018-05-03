@@ -1,4 +1,4 @@
-namespace CustomCode.Domain.Imaging.Memory
+namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
     /// Abstraction for a <see cref="byte"/> array that holds an image's pixel data.
@@ -13,7 +13,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the memory's size in bytes.
         /// </summary>
-        ulong Size { get; }
+        uint Size { get; }
 
         /// <summary>
         /// Gets the number of bytes per color channel per aligned (padded with zeros to match the alignment criteria) image row. 
@@ -23,7 +23,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <summary>
         /// Gets the number of bytes per color channel.
         /// </summary
-        ulong SizePerChannel { get; }
+        uint SizePerChannel { get; }
 
         /// <summary>
         /// Gets the number of bytes per pixel.
