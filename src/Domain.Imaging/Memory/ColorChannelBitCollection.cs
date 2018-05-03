@@ -1,5 +1,6 @@
 namespace CustomCode.Domain.Imaging.Memory
 {
+    using Data.Imaging.Memory;
     using System.Collections.Generic;
 
     /// <summary>
