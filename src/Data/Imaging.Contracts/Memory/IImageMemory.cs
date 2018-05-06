@@ -11,6 +11,11 @@ namespace CustomCode.Data.Imaging.Memory
         ColorChannels ColorChannels { get; }
 
         /// <summary>
+        /// Gets the memory's precision, i.e. the number of bits per color channel per pixel.
+        /// </summary>
+        MemoryPrecision Precision { get; }
+
+        /// <summary>
         /// Gets the memory's size in bytes.
         /// </summary>
         uint Size { get; }
