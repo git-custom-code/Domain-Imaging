@@ -62,6 +62,16 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         /// <param name="index"> The color value's index. </param>
         /// <returns> The color value at the specified <paramref name="index"/>. </returns>
+        object IColorChannelRow.this[uint index]
+        {
+            get { return this[index]; }
+        }
+
+        /// <summary>
+        /// Gets the color value at the specified <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index"> The color value's index. </param>
+        /// <returns> The color value at the specified <paramref name="index"/>. </returns>
         public virtual T this[uint index]
         {
             get

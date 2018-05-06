@@ -30,6 +30,16 @@ namespace CustomCode.Domain.Imaging.Memory
         #region Data
 
         /// <summary>
+        /// Gets the <see cref="IColorChannel"/> at the specified <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index"> The color channel's index. </param>
+        /// <returns> The <see cref="IColorChannel"/> at the specified <paramref name="index"/>. </returns>
+        IColorChannel IColorChannelCollection.this[byte index]
+        {
+            get { return this[index]; }
+        }
+
+        /// <summary>
         /// Gets the <see cref="IColorChannel{T}"/> at the specified <paramref name="index"/>.
         /// </summary>
         /// <param name="index"> The color channel's index. </param>
@@ -89,6 +99,15 @@ namespace CustomCode.Domain.Imaging.Memory
             {
                 yield return channel;
             }
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        IEnumerator<IColorChannel> IEnumerable<IColorChannel>.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         /// <summary>
