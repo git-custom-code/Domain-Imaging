@@ -37,7 +37,7 @@ namespace CustomCode.Domain.Imaging
         /// </summary>
         /// <typeparam name="T"> The type of the <see cref="IImageDecorator"/> to be created. </typeparam>
         /// <param name="image"> The image instance that should be decorated. </param>
-        /// <param name="memory"> The iamge's <see cref="IImageMemory"/> that contains the pixel data. </param>
+        /// <param name="memory"> The image's <see cref="IImageMemory"/> that contains the pixel data. </param>
         /// <returns> The requested image decorator instance. </returns>
         public T Create<T>(IImage image, IImageMemory memory)
             where T : IImageDecorator
