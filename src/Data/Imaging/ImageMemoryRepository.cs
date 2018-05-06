@@ -11,16 +11,16 @@ namespace CustomCode.Data.Imaging
     /// <summary>
     /// Implementation for a repository to load image files from disk.
     /// </summary>
-    [Export(typeof(IImageRepository))]
-    public sealed class ImageRepository : IImageRepository
+    [Export(typeof(IImageMemoryRepository))]
+    public sealed class ImageMemoryRepository : IImageMemoryRepository
     {
         #region Dependencies
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ImageRepository"/> type.
+        /// Creates a new instance of the <see cref="ImageMemoryRepository"/> type.
         /// </summary>
         /// <param name="imageParsers"> A collection with supported image file parsers. </param>
-        public ImageRepository(IEnumerable<IImageFileParser> imageParsers)
+        public ImageMemoryRepository(IEnumerable<IImageFileParser> imageParsers)
         {
             ImageParsers = imageParsers;
         }

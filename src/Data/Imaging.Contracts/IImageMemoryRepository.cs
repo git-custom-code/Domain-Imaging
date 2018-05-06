@@ -6,7 +6,7 @@ namespace CustomCode.Data.Imaging
     /// <summary>
     /// Interface for a repository to load image files from disk.
     /// </summary>
-    public interface IImageRepository
+    public interface IImageMemoryRepository
     {
         /// <summary>
         /// Load an image file from disk.
