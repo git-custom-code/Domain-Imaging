@@ -33,6 +33,14 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
                 }
                 return new OneBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
             }
+            else if (header.BitsPerPixel == 4)
+            {
+                if (colorTable.IsGrayScale())
+                {
+                    return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                }
+                return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+            }
 
             throw new NotSupportedException();
         }
