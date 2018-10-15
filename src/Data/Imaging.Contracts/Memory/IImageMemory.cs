@@ -46,7 +46,7 @@ namespace CustomCode.Data.Imaging.Memory
         byte Stride { get; }
 
         /// <summary>
-        /// Converts a <see cref="ImageMemory"/> to a byte array.
+        /// Converts a <see cref="IImageMemory"/> to a byte array.
         /// </summary>
         byte[] AsArray();
     }

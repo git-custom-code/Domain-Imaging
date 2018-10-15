@@ -1,7 +1,7 @@
 namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
-    /// The pixel row alignment (at 0, 4 or 8 byte boundaries) of a <see cref="ImageMemory"/>.
+    /// The pixel row alignment (at 0, 4 or 8 byte boundaries) of a <see cref="IImageMemory"/>.
     /// </summary>
     public enum MemoryAlignment : byte
     {

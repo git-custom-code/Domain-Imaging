@@ -1,7 +1,7 @@
 namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
-    /// The number of used color channels per pixel of a <see cref="ImageMemory"/>.
+    /// The number of used color channels per pixel of a <see cref="IImageMemory"/>.
     /// </summary>
     public enum ColorChannels : byte
     {

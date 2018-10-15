@@ -1,7 +1,7 @@
 namespace CustomCode.Data.Imaging.Memory
 {
     /// <summary>
-    /// The precision of a single <see cref="ImageMemory"/> entry in bit.
+    /// The precision of a single <see cref="IImageMemory"/> entry in bit.
     /// </summary>
     public enum MemoryPrecision : byte
     {
