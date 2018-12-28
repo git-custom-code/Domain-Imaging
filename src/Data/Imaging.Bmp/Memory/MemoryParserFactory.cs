@@ -17,7 +17,15 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
         /// <inheritdoc />
         public IMemoryParser Create(MemoryAlignment alignment, IColorTable colorTable, InfoHeader header)
         {
-            if (header.BitsPerPixel == 1)
+            if (header.BitsPerPixel == 24)
+            {
+                if (colorTable != null)
+                {
+                    return new TwentyFourBitRgbPaletteParser(alignment, colorTable, header.Height, (uint)header.Width);
+                }
+                return new TwentyFourBitRgbParser(alignment, header.Height, (uint)header.Width);
+            }
+            else if (header.BitsPerPixel == 1)
             {
                 if (colorTable.IsMonochrome())
                 {
@@ -41,7 +49,7 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
                 }
                 return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
             }
-
+            
             throw new NotSupportedException();
         }
 
