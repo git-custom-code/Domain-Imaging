@@ -1,25 +1,28 @@
 namespace CustomCode.Data.Imaging.Memory.Bmp
 {
+    using Imaging.Bmp;
     using Memory;
     using System;
     using System.IO;
 
     /// <summary>
-    /// A <see cref="IMemoryParser"/> for 24bit bitmaps where bits are interpreted as rgb color table values.
+    /// A <see cref="IMemoryParser"/> for 8bit bitmaps where bits are interpreted as rgb color table values.
     /// </summary>
-    public sealed class TwentyFourBitRgbParser : IMemoryParser
+    public sealed class EightBitRgbParser : IMemoryParser
     {
         #region Dependencies
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TwentyFourBitRgbParser"/> type.
+        /// Creates a new instance of the <see cref="EightBitRgbParser"/> type.
         /// </summary>
         /// <param name="alignment"> The alignment of the parsed <see cref="IImageMemory"/>. </param>
+        /// <param name="colorTable"> The bitmap's color table. </param>
         /// <param name="height"> The number of pixels in y-direction of the parsed <see cref="IImageMemory"/>. </param>
         /// <param name="width"> The number of pixels in x-direction of the parsed <see cref="IImageMemory"/>. </param>
-        public TwentyFourBitRgbParser(MemoryAlignment alignment, int height, uint width)
+        public EightBitRgbParser(MemoryAlignment alignment, IColorTable colorTable, int height, uint width)
         {
             Alignment = alignment;
+            ColorTable = colorTable ?? throw new ArgumentNullException(nameof(colorTable));
             Height = height;
             Width = width;
         }
@@ -32,6 +35,11 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
         /// Gets the alignment of the parsed <see cref="IImageMemory"/>.
         /// </summary>
         private MemoryAlignment Alignment { get; }
+
+        /// <summary>
+        /// Gets the bitmap's color table.
+        /// </summary>
+        private IColorTable ColorTable { get; }
 
         /// <summary>
         /// Gets the number of pixels in y-direction of the parsed <see cref="IImageMemory"/>.
@@ -51,7 +59,7 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
         public IImageMemory Parse(BinaryReader reader)
         {
             var memory = new ImageMemory((Width, (uint)Math.Abs(Height)), Alignment, ColorChannels.Rgb, MemoryPrecision.EightBit);
-            var padding = 4 - ((Width * 3) % 4);
+            var padding = 4 - (Width % 4);
 
             var data = memory.AsArray();
             if (Height > 0) // rows are stored bottom up
@@ -91,11 +99,13 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
 
             for (var w = 0; w < Width; ++w)
             {
-                data[rowBlue + w] = reader.ReadByte();
-                data[rowGreen + w] = reader.ReadByte();
-                data[rowRed + w] = reader.ReadByte();
+                var index = reader.ReadByte();
+                var (red, green, blue) = ColorTable[index];
+                data[rowBlue + w] = blue;
+                data[rowGreen + w] = green;
+                data[rowRed + w] = red;
             }
-            
+
             reader.BaseStream.Position += padding;
         }
 

@@ -59,7 +59,7 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
         public IImageMemory Parse(BinaryReader reader)
         {
             var memory = new ImageMemory((Width, (uint)Math.Abs(Height)), Alignment, ColorChannels.Rgb, MemoryPrecision.EightBit);
-            var padding = (4 - ((Width * 3) % 4));
+            var padding = 4 - ((Width * 3) % 4);
 
             var data = memory.AsArray();
             if (Height > 0) // rows are stored bottom up
@@ -71,7 +71,7 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
             }
             else // rows are stored top down
             {
-                var absHeight = (Height * -1);
+                var absHeight = -1 * Height;
                 for (var h = 0; h < absHeight; ++h)
                 {
                     ParseRgbRow(reader, h, ref data, padding, memory.SizePerAlignedRow, memory.SizePerChannel);
@@ -102,7 +102,11 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
                 var index = reader.ReadByte();
                 var (red, green, blue) = ColorTable[index];
                 data[rowBlue + w] = blue;
+                index = reader.ReadByte();
+                (red, green, blue) = ColorTable[index];
                 data[rowGreen + w] = green;
+                index = reader.ReadByte();
+                (red, green, blue) = ColorTable[index];
                 data[rowRed + w] = red;
             }
 

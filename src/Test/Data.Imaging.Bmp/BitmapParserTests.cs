@@ -93,6 +93,54 @@ namespace CustomCode.Data.Imaging.Bmp.Tests
             });
         }
 
+        [Fact(DisplayName = "Parse a rgb bitmap with 8bit depth")]
+        public void ParseBitmapRgb8()
+        {
+            Given(() => new BitmapParser(new MemoryParserFactory()))
+            .Also(() => new BinaryReader(File.OpenRead(@".\Data\Valid\pal8.bmp")))
+            .When((parser, reader) => parser.Parse(reader, MemoryAlignment.None))
+            .Then(memory =>
+            {
+                memory.Size.Should().Be(127 * 64 * 3);
+                memory.SizePerAlignedRow.Should().Be(127);
+                memory.SizePerChannel.Should().Be(127 * 64);
+                memory.SizePerPixel.Should().Be(3);
+                memory.Stride.Should().Be(0);
+            });
+        }
+
+        [Fact(DisplayName = "Parse a rgb bitmap with 8bit depth and every bmp field defaulted to ß")]
+        public void ParseBitmapRgb8WithDefaultZero()
+        {
+            Given(() => new BitmapParser(new MemoryParserFactory()))
+            .Also(() => new BinaryReader(File.OpenRead(@".\Data\Valid\pal8-0.bmp")))
+            .When((parser, reader) => parser.Parse(reader, MemoryAlignment.None))
+            .Then(memory =>
+            {
+                memory.Size.Should().Be(127 * 64 * 3);
+                memory.SizePerAlignedRow.Should().Be(127);
+                memory.SizePerChannel.Should().Be(127 * 64);
+                memory.SizePerPixel.Should().Be(3);
+                memory.Stride.Should().Be(0);
+            });
+        }
+
+        [Fact(DisplayName = "Parse a gray scale bitmap with 8bit depth")]
+        public void ParseBitmapGrayScale8()
+        {
+            Given(() => new BitmapParser(new MemoryParserFactory()))
+            .Also(() => new BinaryReader(File.OpenRead(@".\Data\Valid\pal8gs.bmp")))
+            .When((parser, reader) => parser.Parse(reader, MemoryAlignment.None))
+            .Then(memory =>
+            {
+                memory.Size.Should().Be(127 * 64);
+                memory.SizePerAlignedRow.Should().Be(127);
+                memory.SizePerChannel.Should().Be(127 * 64);
+                memory.SizePerPixel.Should().Be(1);
+                memory.Stride.Should().Be(0);
+            });
+        }
+
         [Fact(DisplayName = "Parse a rgb bitmap with 24bit depth")]
         [IntegrationTest]
         public void ParseBitmapRgb24()

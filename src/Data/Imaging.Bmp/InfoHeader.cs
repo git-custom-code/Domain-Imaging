@@ -1,5 +1,6 @@
 namespace CustomCode.Data.Imaging.Bmp
 {
+    using System;
     using System.IO;
 
     /// <summary>
@@ -88,6 +89,10 @@ namespace CustomCode.Data.Imaging.Bmp
             HorizontalResolution = reader.ReadInt32();
             VerticalResolution = reader.ReadInt32();
             ColorsUsed = reader.ReadUInt32();
+            if (ColorsUsed == 0 && BitsPerPixel < 16)
+            {
+                ColorsUsed = (uint)Math.Pow(2, BitsPerPixel);
+            }
             ColorsImportant = reader.ReadUInt32();
         }
 

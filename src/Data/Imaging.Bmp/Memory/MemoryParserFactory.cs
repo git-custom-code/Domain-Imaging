@@ -19,11 +19,11 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
         {
             if (header.BitsPerPixel == 24)
             {
-                if (colorTable != null)
+                if (colorTable == null)
                 {
-                    return new TwentyFourBitRgbPaletteParser(alignment, colorTable, header.Height, (uint)header.Width);
+                    return new TwentyFourBitRgbParser(alignment, header.Height, (uint)header.Width);
                 }
-                return new TwentyFourBitRgbParser(alignment, header.Height, (uint)header.Width);
+                return new TwentyFourBitRgbPaletteParser(alignment, colorTable, header.Height, (uint)header.Width);
             }
             else if (header.BitsPerPixel == 1)
             {
@@ -49,7 +49,15 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
                 }
                 return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
             }
-            
+            else if (header.BitsPerPixel == 8)
+            {
+                if (colorTable == null || colorTable.IsGrayScale())
+                {
+                    return new EightBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                }
+                return new EightBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+            }
+
             throw new NotSupportedException();
         }
 
