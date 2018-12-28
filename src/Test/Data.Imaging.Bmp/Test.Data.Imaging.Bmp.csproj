@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>Test.Data.Imaging.Tiff</AssemblyName>
+    <AssemblyName>Test.Data.Imaging.Bmp</AssemblyName>
 
-    <RootNamespace>CustomCode.Data.Imaging.Tiff.Tests</RootNamespace>
+    <RootNamespace>CustomCode.Data.Imaging.Bmp.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
