@@ -14,7 +14,7 @@ namespace CustomCode.Data.Imaging
         /// <param name="path"> The full path to the image file. </param>
         /// <param name="alignment"> The desired memory alignment of the loaded <see cref="IImageMemory"/>. </param>
         /// <returns> The loaded <see cref="IImageMemory"/>. </returns>
-        IImageMemory LoadFrom(string path, MemoryAlignment alignment);
+        IImageMemory LoadFrom(string path, MemoryAlignment? alignment = null);
 
         /// <summary>
         /// Asynchronously load an image file from disk.
@@ -22,6 +22,6 @@ namespace CustomCode.Data.Imaging
         /// <param name="path"> The full path to the image file. </param>
         /// <param name="alignment"> The desired memory alignment of the loaded <see cref="IImageMemory"/>. </param>
         /// <returns> An awaitable task with the loaded <see cref="IImageMemory"/>. </returns>
-        Task<IImageMemory> LoadFromAsync(string path, MemoryAlignment alignment);
+        Task<IImageMemory> LoadFromAsync(string path, MemoryAlignment? alignment = null);
     }
 }
