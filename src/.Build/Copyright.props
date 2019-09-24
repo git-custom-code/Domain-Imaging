@@ -5,7 +5,7 @@
     <Company>CustomCode</Company>
     <Copyright>Copyright © 2018-2019</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Product>C# attribute conventions for light inject.</Product>
+    <Product>Imaging library for c#.</Product>
   </PropertyGroup>
 
 </Project>

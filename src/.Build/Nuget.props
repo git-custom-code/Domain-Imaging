@@ -3,10 +3,10 @@
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageVersion>$(SemVer)</PackageVersion>
-    <PackageProjectUrl>https://github.com/git-custom-code/Core-Composition</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/git-custom-code/Core-Composition</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/git-custom-code/Domain-Imaging</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/git-custom-code/Domain-Imaging</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>C#, LightInject, Dependency Injection</PackageTags>
+    <PackageTags>C#, Image Processing</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
