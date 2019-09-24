@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <PackageId>$(RootNamespace)</PackageId>
+    <PackageId>$(AssemblyTitle)</PackageId>
     <Title>$(AssemblyTitle)</Title>
   </PropertyGroup>
 
