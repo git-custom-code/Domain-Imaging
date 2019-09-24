@@ -1,38 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>CustomCode.Domain.Imaging</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <IsPackable>True</IsPackable>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
-    <PackageId>CustomCode.Domain.Imaging</PackageId>
-    <PackageVersion>1.0.0-alpha.1</PackageVersion>
-    <Title>Imaging library for c#.</Title>
-    <Authors>CustomCode</Authors>
-    <Company>CustomCode</Company>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Title>CustomCode.Domain.Imaging</Title>
     <Description>Imaging library for c#.</Description>
-    <Copyright>Copyright @ 2018</Copyright>
-    <PackageLicenseUrl>https://github.com/git-custom-code/Domain-Imaging/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/git-custom-code/Domain-Imaging</PackageProjectUrl>
-    <PackageTags>C#, Imaging</PackageTags>
-    <RepositoryUrl>https://github.com/git-custom-code/Domain-Imaging</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <RootNamespace>CustomCode.Domain.Imaging</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Shared\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
-    <Compile Include="..\..\Shared\SharedAssemblyVersion.cs" Link="Properties\SharedAssemblyVersion.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CustomCode.Core.Composition" Version="1.0.1" />
-    <PackageReference Include="System.Memory" Version="4.5.0-preview2-26406-04" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="CustomCode.Core.Composition" Version="2.3.2" />
   </ItemGroup>
 
   <ItemGroup>
