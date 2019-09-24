@@ -20,9 +20,18 @@ namespace CustomCode.Domain.Imaging
         {
             DecoratorFactory = decoratorFactory;
             Memory = memory;
-            Dimension = new Dimension(
-                memory.SizePerAlignedRow - memory.Stride,
-                memory.SizePerChannel / memory.SizePerAlignedRow);
+            if (memory.Precision == MemoryPrecision.OneBit)
+            {
+                Dimension = new Dimension(
+                    memory.SizePerPixel,
+                    memory.SizePerChannel / memory.SizePerAlignedRow);
+            }
+            else
+            {
+                Dimension = new Dimension(
+                    memory.SizePerAlignedRow - memory.Stride,
+                    memory.SizePerChannel / memory.SizePerAlignedRow);
+            }
         }
 
         /// <summary>

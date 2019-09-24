@@ -19,7 +19,14 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <param name="memory"> The image's <see cref="IImageMemory"/> that contains the pixel data. </param>
         public MemoryDecorator(IImageMemory memory)
         {
-            Channels = new ColorChannelCollection<T>(memory);
+            if (memory.Precision == MemoryPrecision.OneBit)
+            {
+                Channels = new ColorChannelBitCollection(memory) as IColorChannelCollection<T>;
+            }
+            else
+            {
+                Channels = new ColorChannelCollection<T>(memory);
+            }
             Memory = memory;
         }
 

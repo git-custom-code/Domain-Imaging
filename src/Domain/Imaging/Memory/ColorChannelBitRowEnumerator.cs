@@ -77,7 +77,7 @@ namespace CustomCode.Domain.Imaging.Memory
             if (Index < RowLength)
             {
                 var byteIndex = (int)(Index / 8);
-                var bitIndex = (int)(Index - 8 * byteIndex);
+                var bitIndex = 7 - (int)(Index - 8 * byteIndex);
                 var currentByte = Memory.Span[byteIndex];
                 var bitValue = (currentByte & (1 << bitIndex)) != 0;
                 Current = new Bit(bitValue);

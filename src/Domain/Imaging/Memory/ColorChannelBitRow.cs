@@ -40,7 +40,7 @@ namespace CustomCode.Domain.Imaging.Memory
                 var length = (int)Memory.SizePerAlignedRow;
                 var rowMemory = new ReadOnlyMemory<byte>(Memory.AsArray(), start, length);
                 var byteIndex = (int)(index / 8);
-                var bitIndex = (int)(index - 8 * byteIndex);
+                var bitIndex = 7 - (int)(index - (8 * byteIndex));
                 var currentByte = rowMemory.Span[byteIndex];
                 var bitValue = (currentByte & (1 << bitIndex)) != 0;
                 return new Bit(bitValue);
