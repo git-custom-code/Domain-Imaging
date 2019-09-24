@@ -43,11 +43,22 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
             }
             else if (header.BitsPerPixel == 4)
             {
-                if (colorTable.IsGrayScale())
+                if (header.Compression == CompressionType.Rle4)
                 {
-                    return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                    if (colorTable.IsGrayScale())
+                    {
+                        return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                    }
+                    return new FourBitRgbRleParser(alignment, colorTable, header.Height, (uint)header.Width);
                 }
-                return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+                else
+                {
+                    if (colorTable.IsGrayScale())
+                    {
+                        return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                    }
+                    return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+                }
             }
             else if (header.BitsPerPixel == 8)
             {
