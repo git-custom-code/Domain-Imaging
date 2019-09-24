@@ -3,15 +3,15 @@ namespace CustomCode.Domain.Imaging
     /// <summary>
     /// A type that contains an image's width and height in pixel.
     /// </summary>
-    public struct Dimension
+    public readonly struct Dimension
     {
         #region Dependencies
 
         /// <summary>
         /// Creates a new instance of the <see cref="Dimension"/> type.
         /// </summary>
-        /// <param name="width"> The dimension's width in pixel. </param>
-        /// <param name="height"> The dimension's height in pixel. </param>
+        /// <param name="width"> The dimension's width [in pixel]. </param>
+        /// <param name="height"> The dimension's height [in pixel]. </param>
         public Dimension(uint width, uint height)
         {
             Width = width;
@@ -21,7 +21,7 @@ namespace CustomCode.Domain.Imaging
         /// <summary>
         /// Creates a new instance of the <see cref="Dimension"/> type.
         /// </summary>
-        /// <param name="dimension"> The dimensions width and height in pixel. </param>
+        /// <param name="dimension"> The dimensions width and height [in pixel]. </param>
         public Dimension((uint width, uint height) dimension)
         {
             Width = dimension.width;
@@ -43,12 +43,12 @@ namespace CustomCode.Domain.Imaging
         #region Data
 
         /// <summary>
-        /// Gets the dimension's height in pixel.
+        /// Gets the dimension's height [in pixel].
         /// </summary>
         public uint Height { get; }
 
         /// <summary>
-        /// Gets the dimension's width in pixel.
+        /// Gets the dimension's width [in pixel].
         /// </summary>
         public uint Width { get; }
 
@@ -57,9 +57,28 @@ namespace CustomCode.Domain.Imaging
         #region Logic
 
         /// <summary>
-        /// Returns the hash code for this instance.
+        /// Deconstructs this instance to a <see cref="System.Tuple{T1, T2}"/>.
         /// </summary>
-        /// <returns> A 32-bit signed integer that is the hash code for this instance. </returns>
+        /// <param name="width"> The dimension's width [in pixel]. </param>
+        /// <param name="height"> The dimension's height [in pixel]. </param>
+        public void Deconstruct(out uint width, out uint height)
+        {
+            width = Width;
+            height = Height;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
+        {
+            if (obj is Dimension dimension)
+            {
+                return Width == dimension.Width && Height == dimension.Height;
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             var hash = 23;
@@ -68,27 +87,7 @@ namespace CustomCode.Domain.Imaging
             return hash;
         }
 
-        /// <summary>
-        /// Indicates whether this instance and a specified object are equal.
-        /// </summary>
-        /// <param name="obj"> The object to compare with the current instance. </param>
-        /// <returns>
-        /// True if <paramref name="obj"/> and this instance are the same type and represent the same value, false otherwise.
-        /// </returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is Dimension dimension)
-            {
-                return (Width == dimension.Width && Height == dimension.Height);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Creates a human readable string representation of this instance.
-        /// </summary>
-        /// <returns> A human readable string representation of this instance. </returns>
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"Width: {Width}, Height: {Height}";
@@ -101,15 +100,6 @@ namespace CustomCode.Domain.Imaging
         public static implicit operator Dimension((uint width, uint height) tuple)
         {
             return new Dimension(tuple);
-        }
-
-        /// <summary>
-        /// Convert a <see cref="Dimension"/> to a value tuple.
-        /// </summary>
-        /// <param name="dimension"> The dimension to be converted. </param>
-        public static explicit operator (uint width, uint height)(Dimension dimension)
-        {
-            return (width: dimension.Width, height: dimension.Height);
         }
 
         /// <summary>
