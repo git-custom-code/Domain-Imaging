@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <Title>Data.Imaging.Contracts</Title>
+    <Title>CustomCode.Data.Imaging.Contracts</Title>
     <Description>Imaging library for c#.</Description>
     <RootNamespace>CustomCode.Data.Imaging</RootNamespace>
   </PropertyGroup>
