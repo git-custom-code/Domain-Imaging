@@ -2,6 +2,7 @@ namespace CustomCode.Data.Imaging
 {
     using Memory;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -29,7 +30,8 @@ namespace CustomCode.Data.Imaging
         /// </summary>
         /// <param name="reader"> The reader to the binary image file stream. </param>
         /// <param name="alignment"> The desired memory alignment of the parsed <see cref="IImageMemory"/>. </param>
+        /// <param name="token"> A <see cref="CancellationToken"/> that can be used to cancel the asynchronous operation. </param>
         /// <returns> An awaitable task with the parsed <see cref="IImageMemory"/>. </returns>
-        Task<IImageMemory> ParseAsync(BinaryReader reader, MemoryAlignment alignment);
+        Task<IImageMemory> ParseAsync(BinaryReader reader, MemoryAlignment alignment, CancellationToken? token = null);
     }
 }

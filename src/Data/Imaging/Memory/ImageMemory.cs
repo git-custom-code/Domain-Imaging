@@ -1,5 +1,7 @@
 namespace CustomCode.Data.Imaging.Memory
 {
+    using System;
+
     /// <summary>
     /// Abstraction for a <see cref="byte"/> array that holds an image's pixel data.
     /// </summary>
@@ -44,7 +46,7 @@ namespace CustomCode.Data.Imaging.Memory
             }
             else
             {
-                SizePerUnalignedRow = dimension.width * (uint)(Precision);
+                SizePerUnalignedRow = dimension.width * (uint)Precision;
             }
 
             Stride = 0;
@@ -69,18 +71,10 @@ namespace CustomCode.Data.Imaging.Memory
 
         #region Data
 
-        /// <summary>
-        /// Gets the memory's alignment.
-        /// </summary>
-        /// <remarks>
-        /// Image memory can have no alignment at all or be aligned at 4 or 8 byte boundaries. If memoryF is aligned,
-        /// each row of an image is padded with zeros so that the length of the row is a multiple of 4 or 8.
-        /// </remarks>
+        /// <inheritdoc />
         public MemoryAlignment Alignment { get; }
 
-        /// <summary>
-        /// Gets the memory's number of color channels per pixel.
-        /// </summary>
+        /// <inheritdoc />
         public ColorChannels ColorChannels { get; }
 
         /// <summary>
@@ -88,36 +82,22 @@ namespace CustomCode.Data.Imaging.Memory
         /// </summary>
         private byte[] Data { get; }
 
-        /// <summary>
-        /// Gets the memory's precision, i.e. the number of bits per color channel per pixel.
-        /// </summary>
+        /// <inheritdoc />
         public MemoryPrecision Precision { get; }
 
-        /// <summary>
-        /// Gets the memory's size in bytes.
-        /// </summary>
+        /// <inheritdoc />
         public uint Size
         {
             get { return (uint)Data.Length; }
         }
 
-        /// <summary>
-        /// Gets the number of bytes per color channel per aligned (padded with zeros to match the alignment criteria) image row. 
-        /// </summary>
+        /// <inheritdoc />
         public uint SizePerAlignedRow { get; }
 
-        /// <summary>
-        /// Gets the number of bytes per color channel.
-        /// </summary>
+        /// <inheritdoc />
         public uint SizePerChannel { get; }
 
-        /// <summary>
-        /// Gets the number of bytes per pixel.
-        /// </summary>
-        /// <remarks>
-        /// Note that for monochrome memory this field stores the number of bits per unaligned image row 
-        /// instead of the number of bytes per pixel (this information would be lost otherwise).
-        /// </remarks>
+        /// <inheritdoc />
         public uint SizePerPixel { get; }
 
         /// <summary>
@@ -125,28 +105,44 @@ namespace CustomCode.Data.Imaging.Memory
         /// </summary>
         private uint SizePerUnalignedRow { get; }
 
-        /// <summary>
-        /// Gets the stride per color channel per image row.
-        /// The stride is the "number of zero bytes" that are needed to align an image row at 4 or 8 byte boundaries.
-        /// </summary>
+        /// <inheritdoc />
         public byte Stride { get; }
 
         #endregion
 
         #region Logic
 
-        /// <summary>
-        /// Converts a <see cref="ImageMemory"/> to a byte array.
-        /// </summary>
+        /// <inheritdoc />
         public byte[] AsArray()
         {
             return Data;
         }
 
-        /// <summary>
-        /// Creates a human readable string representation of this instance.
-        /// </summary>
-        /// <returns> A human readable string representation of this instance. </returns>
+        /// <inheritdoc />
+        public Memory<byte> AsMemory()
+        {
+            return new Memory<byte>(Data);
+        }
+
+        /// <inheritdoc />
+        public ReadOnlyMemory<byte> AsReadOnlyMemory()
+        {
+            return new ReadOnlyMemory<byte>(Data);
+        }
+
+        /// <inheritdoc />
+        public ReadOnlySpan<byte> AsReadOnlySpan()
+        {
+            return new ReadOnlySpan<byte>(Data);
+        }
+
+        /// <inheritdoc />
+        public Span<byte> AsSpan()
+        {
+            return new Span<byte>(Data);
+        }
+
+        /// <inheritdoc />
         public override string ToString()
         {
             var length = Data.Length;
@@ -158,12 +154,12 @@ namespace CustomCode.Data.Imaging.Memory
             }
             else if (Data.Length > 1024 * 1024 && Data.Length < 1024 * 1024 * 1024)
             {
-                length /= (1024 * 1024);
+                length /= 1024 * 1024;
                 unit = "mb";
             }
             else if (Data.Length > 1024 * 1024 * 1024)
             {
-                length /= (1024 * 1024 * 1024);
+                length /= 1024 * 1024 * 1024;
                 unit = "gb";
             }
 

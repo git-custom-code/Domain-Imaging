@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Title>CustomCode.Test.Domain.Imaging.Contracts</Title>
-    <RootNamespace>CustomCode.Domain.Imaging.Tests</RootNamespace>
+    <Title>CustomCode.Test.Data.Imaging</Title>
+    <RootNamespace>CustomCode.Data.Imaging.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Domain\Imaging.Contracts\Domain.Imaging.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Data\Imaging\Data.Imaging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Style Guides", "Style Guide
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Domain.Imaging.Contracts", "Test\Domain\Imaging.Contracts\Test.Domain.Imaging.Contracts.csproj", "{0D8FF012-16D5-4FFC-B823-A8554ADCF58C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Data.Imaging", "Test\Data\Imaging\Test.Data.Imaging.csproj", "{955DBAA4-86C0-4418-AF6C-24E270B16D98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{0D8FF012-16D5-4FFC-B823-A8554ADCF58C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D8FF012-16D5-4FFC-B823-A8554ADCF58C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D8FF012-16D5-4FFC-B823-A8554ADCF58C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

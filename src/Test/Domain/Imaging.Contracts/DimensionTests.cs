@@ -1,7 +1,6 @@
-using Xunit;
-
 namespace CustomCode.Domain.Imaging.Tests
 {
+    using Xunit;
     public sealed class DimensionTests
     {
         [Fact(DisplayName = "Dimension from constant width and height")]

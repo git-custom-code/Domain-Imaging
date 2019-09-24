@@ -7,6 +7,7 @@ namespace CustomCode.Data.Imaging
     using System.IO;
     using System.Linq;
     using System.Runtime.InteropServices;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -35,39 +36,27 @@ namespace CustomCode.Data.Imaging
 
         #region Logic
 
-        /// <summary>
-        /// Load an image file from disk.
-        /// </summary>
-        /// <param name="path"> The full path to the image file. </param>
-        /// <param name="alignment"> The desired memory alignment of the loaded <see cref="IImageMemory"/>. </param>
-        /// <returns> The loaded <see cref="IImageMemory"/>. </returns>
+        /// <inheritdoc />
         public IImageMemory LoadFrom(string path, MemoryAlignment? alignment = null)
         {
             var (parser, memoryAlignment) = ResolveParser(path, alignment);
 
-            using (var stream = File.OpenRead(path))
-            using (var reader = new BinaryReader(stream))
-            {
-                return parser.Parse(reader, memoryAlignment);
-            }
+            using var stream = File.OpenRead(path);
+            using var reader = new BinaryReader(stream);
+
+            return parser.Parse(reader, memoryAlignment);
         }
 
-        /// <summary>
-        /// Asynchronously load an image file from disk.
-        /// </summary>
-        /// <param name="path"> The full path to the image file. </param>
-        /// <param name="alignment"> The desired memory alignment of the loaded <see cref="IImageMemory"/>. </param>
-        /// <returns> An awaitable task with the loaded <see cref="IImageMemory"/>. </returns>
-        public async Task<IImageMemory> LoadFromAsync(string path, MemoryAlignment? alignment = null)
+        /// <inheritdoc />
+        public async Task<IImageMemory> LoadFromAsync(string path, MemoryAlignment? alignment = null, CancellationToken? token = null)
         {
             var (parser, memoryAlignment) = ResolveParser(path, alignment);
 
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous))
-            using (var reader = new BinaryReader(stream))
-            {
-                var memory = await parser.ParseAsync(reader, memoryAlignment);
-                return memory;
-            }
+            using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous);
+            using var reader = new BinaryReader(stream);
+
+            var memory = await parser.ParseAsync(reader, memoryAlignment, token);
+            return memory;
         }
 
         /// <summary>
