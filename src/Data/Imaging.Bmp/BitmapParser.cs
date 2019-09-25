@@ -5,6 +5,7 @@ namespace CustomCode.Data.Imaging.Bmp
     using Memory.Bmp;
     using System;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -72,9 +73,9 @@ namespace CustomCode.Data.Imaging.Bmp
         }
 
         /// <inheritdoc />
-        public Task<IImageMemory> ParseAsync(BinaryReader reader, MemoryAlignment alignment)
+        public Task<IImageMemory> ParseAsync(BinaryReader reader, MemoryAlignment alignment, CancellationToken? token = null)
         {
-            return Task.Run(() => Parse(reader, alignment));
+            return Task.Run(() => Parse(reader, alignment), token ?? CancellationToken.None);
         }
 
         /// <summary>

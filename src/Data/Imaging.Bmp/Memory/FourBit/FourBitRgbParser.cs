@@ -92,9 +92,9 @@ namespace CustomCode.Data.Imaging.Memory.Bmp
         /// <param name="reader"> The binary reader to the raw bitmap pixel data. </param>
         /// <param name="rowIndex"> The index of the row to be parsed. </param>
         /// <param name="data"> The parsed row data. </param>
+        /// <param name="padding"> The number of padding bytes per image memory row. </param>
         /// <param name="sizePerAlignedRow"> The number of bytes per aligned image memory row. </param>
         /// <param name="sizePerChannel"> The number of bytes per color channel. </param>
-        /// <param name="padding"> The number of padding bytes per image memory row. </param>
         private void ParseRgbRow(BinaryReader reader, int rowIndex, ref byte[] data,
             uint padding, uint sizePerAlignedRow, uint sizePerChannel)
         {

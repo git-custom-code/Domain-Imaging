@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Domain.Imaging.Contrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Data.Imaging", "Test\Data\Imaging\Test.Data.Imaging.csproj", "{955DBAA4-86C0-4418-AF6C-24E270B16D98}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Data.Imaging.Bmp", "Test\Data\Imaging.Bmp\Test.Data.Imaging.Bmp.csproj", "{7013F3CC-3A83-483A-AE1D-B9D696A031F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{955DBAA4-86C0-4418-AF6C-24E270B16D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

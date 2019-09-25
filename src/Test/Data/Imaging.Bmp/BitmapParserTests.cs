@@ -93,6 +93,22 @@ namespace CustomCode.Data.Imaging.Bmp.Tests
             });
         }
 
+        [Fact(DisplayName = "Parse a rgb bitmap with 4bit depth and runtime length encoding")]
+        public void ParseBitmapRgb4WithRuntimeLengthEncoding()
+        {
+            Given(() => new BitmapParser(new MemoryParserFactory()))
+            .Also(() => new BinaryReader(File.OpenRead(@".\Data\Valid\pal4rle.bmp")))
+            .When((parser, reader) => parser.Parse(reader, MemoryAlignment.None))
+            .Then(memory =>
+            {
+                memory.Size.Should().Be(127 * 64 * 3);
+                memory.SizePerAlignedRow.Should().Be(127);
+                memory.SizePerChannel.Should().Be(127 * 64);
+                memory.SizePerPixel.Should().Be(3);
+                memory.Stride.Should().Be(0);
+            });
+        }
+
         [Fact(DisplayName = "Parse a rgb bitmap with 8bit depth")]
         public void ParseBitmapRgb8()
         {
