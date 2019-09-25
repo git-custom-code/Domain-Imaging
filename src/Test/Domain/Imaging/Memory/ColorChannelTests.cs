@@ -1,5 +1,6 @@
 namespace CustomCode.Domain.Imaging.Memory.Tests
 {
+    using Data.Imaging.Memory;
     using Test.BehaviorDrivenDevelopment;
     using Xunit;
 

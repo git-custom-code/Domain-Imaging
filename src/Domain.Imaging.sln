@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Data.Imaging", "Test\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Data.Imaging.Bmp", "Test\Data\Imaging.Bmp\Test.Data.Imaging.Bmp.csproj", "{7013F3CC-3A83-483A-AE1D-B9D696A031F1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Domain.Imaging", "Test\Domain\Imaging\Test.Domain.Imaging.csproj", "{3AF35725-F7A5-4344-A12E-EECF8417A3A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7013F3CC-3A83-483A-AE1D-B9D696A031F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF35725-F7A5-4344-A12E-EECF8417A3A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF35725-F7A5-4344-A12E-EECF8417A3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF35725-F7A5-4344-A12E-EECF8417A3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF35725-F7A5-4344-A12E-EECF8417A3A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

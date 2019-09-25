@@ -1,5 +1,6 @@
 namespace CustomCode.Domain.Imaging.Memory.Tests
 {
+    using Data.Imaging.Memory;
     using Test.BehaviorDrivenDevelopment;
     using Xunit;
 
@@ -26,7 +27,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
             .Then(collection => collection.Count.Should().Be(2));
         }
 
-        [Fact(DisplayName = "Color channelcollection  Rgb, 8bit")]
+        [Fact(DisplayName = "Color channel collection Rgb, 8bit")]
         public void CreateColorChannelCollectionRgb8Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.EightBit))
@@ -58,7 +59,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
             .Then(collection => collection.Count.Should().Be(2));
         }
 
-        [Fact(DisplayName = "Color channelcollection  Rgb, 16bit")]
+        [Fact(DisplayName = "Color channel collection Rgb, 16bit")]
         public void CreateColorChannelCollectionRgb16Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.SixteenBit))

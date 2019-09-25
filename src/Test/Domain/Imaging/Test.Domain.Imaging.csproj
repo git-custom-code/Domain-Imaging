@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <Title>CustomCode.Test.Domain.Imaging</Title>
+    <RootNamespace>CustomCode.Domain.Imaging.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CustomCode.Test.BehaviorDrivenDevelopment" Version="1.1.2-alpha.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\Imaging.Contracts\Data.Imaging.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Data\Imaging\Data.Imaging.csproj" />
+    <ProjectReference Include="..\..\..\Domain\Imaging\Domain.Imaging.csproj" />
+  </ItemGroup>
+
+</Project>
