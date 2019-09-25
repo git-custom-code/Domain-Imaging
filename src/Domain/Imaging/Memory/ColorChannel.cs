@@ -7,7 +7,7 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Implementation for image color channel that allow acces to single <see cref="IColorChannelRow{T}"/>s.
+    /// Implementation for image color channel that allow acces to individual <see cref="IColorChannelRow{T}"/>s.
     /// </summary>
     /// <typeparam name="T"> The color channel's precision. </typeparam>
     public class ColorChannel<T> : IColorChannel<T>
@@ -32,21 +32,13 @@ namespace CustomCode.Domain.Imaging.Memory
 
         #region Data
 
-        /// <summary>
-        /// Gets the <see cref="IColorChannelRow"/> at the specified <paramref name="index"/>.
-        /// </summary>
-        /// <param name="index"> The color channel row's index. </param>
-        /// <returns> The <see cref="IColorChannelRow"/> at the specified <paramref name="index"/>. </returns>
+        /// <inheritdoc />
         IColorChannelRow IColorChannel.this[uint index]
         {
             get { return this[index]; }
         }
 
-        /// <summary>
-        /// Gets the <see cref="IColorChannelRow{T}"/> at the specified <paramref name="index"/>.
-        /// </summary>
-        /// <param name="index"> The color channel row's index. </param>
-        /// <returns> The <see cref="IColorChannelRow{T}"/> at the specified <paramref name="index"/>. </returns>
+        /// <inheritdoc />
         public IColorChannelRow<T> this[uint index]
         {
             get { return Rows.Value[(int)index]; }
@@ -62,9 +54,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         protected byte Index { get; }
 
-        /// <summary>
-        /// Gets the number of rows.
-        /// </summary>
+        /// <inheritdoc />
         public uint RowCount { get; }
 
         /// <summary>
@@ -76,10 +66,7 @@ namespace CustomCode.Domain.Imaging.Memory
 
         #region Logic
 
-        /// <summary>
-        /// Convert the channel to a <see cref="Span{TType}"/>.
-        /// </summary>
-        /// <returns> A <see cref="Span{TType}"/>, i.e. a "managed pointer" to the channel. </returns>
+        /// <inheritdoc />
         public Span<TType> AsSpan<TType>()
             where TType : struct, IComparable, IConvertible, IFormattable
         {
@@ -103,10 +90,7 @@ namespace CustomCode.Domain.Imaging.Memory
             return result;
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        /// <inheritdoc />
         public IEnumerator<IColorChannelRow<T>> GetEnumerator()
         {
             foreach (var row in Rows.Value)
@@ -115,74 +99,64 @@ namespace CustomCode.Domain.Imaging.Memory
             }
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
-
+        /// <inheritdoc />
         IEnumerator<IColorChannelRow> IEnumerable<IColorChannelRow>.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        /// <summary>
-        /// Creates a human readable string representation of this instance.
-        /// </summary>
-        /// <returns> A human readable string representation of this instance. </returns>
+        /// <inheritdoc />
         public override string ToString()
         {
             if (Memory.ColorChannels == ColorChannels.Monochrome)
             {
-                return $"Monochrome ({RowCount} rows)";
+                return $"Monochrome ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
             }
             else if (Memory.ColorChannels == ColorChannels.Gray)
             {
-                return $"Gray ({RowCount} rows)";
+                return $"Gray ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
             }
             else if (Memory.ColorChannels == ColorChannels.GrayAlpha)
             {
                 if (Index == 0)
                 {
-                    return $"Gray ({RowCount} rows)";
+                    return $"Gray ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
                 }
-                return $"Alpha ({RowCount} rows)";
+                return $"Alpha ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
             }
             else if (Memory.ColorChannels == ColorChannels.Rgb)
             {
                 if (Index == 0)
                 {
-                    return $"Red ({RowCount} rows)";
+                    return $"Red ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
                 }
                 else if (Index == 1)
                 {
-                    return $"Green ({RowCount} rows)";
+                    return $"Green ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
                 }
-                return $"Blue ({RowCount} rows)";
+                return $"Blue ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
             }
             else
             {
                 if (Index == 0)
                 {
-                    return $"Red ({RowCount} rows)";
+                    return $"Red ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
                 }
                 else if (Index == 1)
                 {
-                    return $"Green ({RowCount} rows)";
+                    return $"Green ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
                 }
                 else if (Index == 2)
                 {
-                    return $"Blue ({RowCount} rows)";
+                    return $"Blue ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
                 }
-                return $"Alpha ({RowCount} rows)";
+                return $"Alpha ({RowCount} row{(RowCount == 1 ? string.Empty : "s")})";
             }
         }
 

@@ -15,7 +15,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelGray8Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.EightBit))
-            .When(buffer => new ColorChannel<byte>(0, buffer))
+            .When(memory => new ColorChannel<byte>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -23,7 +23,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelGrayAlpha8Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
-            .When(buffer => new ColorChannel<byte>(0, buffer))
+            .When(memory => new ColorChannel<byte>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -31,7 +31,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelRgb8Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.EightBit))
-            .When(buffer => new ColorChannel<byte>(0, buffer))
+            .When(memory => new ColorChannel<byte>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -39,7 +39,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelRgba8Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.EightBit))
-            .When(buffer => new ColorChannel<byte>(0, buffer))
+            .When(memory => new ColorChannel<byte>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -47,7 +47,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelGray16Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.SixteenBit))
-            .When(buffer => new ColorChannel<ushort>(0, buffer))
+            .When(memory => new ColorChannel<ushort>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -55,7 +55,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelGrayAlpha16Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
-            .When(buffer => new ColorChannel<ushort>(0, buffer))
+            .When(memory => new ColorChannel<ushort>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -63,7 +63,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelRgb16Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
-            .When(buffer => new ColorChannel<ushort>(0, buffer))
+            .When(memory => new ColorChannel<ushort>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
 
@@ -71,7 +71,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         public void CreateColorChannelRgba16Bit()
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
-            .When(buffer => new ColorChannel<ushort>(0, buffer))
+            .When(memory => new ColorChannel<ushort>(0, memory))
             .Then(channel => channel.RowCount.Should().Be(20));
         }
     }
