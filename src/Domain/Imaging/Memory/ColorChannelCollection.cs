@@ -38,10 +38,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <inheritdoc />
         public IColorChannel<T> this[byte index]
         {
-            get
-            {
-                return Channels.Value[index];
-            }
+            get { return Channels.Value[index]; }
         }
 
         /// <summary>
@@ -70,7 +67,7 @@ namespace CustomCode.Domain.Imaging.Memory
             var result = new List<IColorChannel<T>>();
             byte index = 0;
 
-            for (var i = 0ul; i < Memory.Size; i += Memory.SizePerChannel)
+            for (var i = 0u; i < Memory.Size; i += Memory.SizePerChannel)
             {
                 result.Add(new ColorChannel<T>(index, Memory));
                 ++index;
@@ -103,6 +100,10 @@ namespace CustomCode.Domain.Imaging.Memory
         /// <inheritdoc />
         public override string ToString()
         {
+            if (Count == 1)
+            {
+                return $"1 channel";
+            }
             return $"{Count} channels";
         }
 

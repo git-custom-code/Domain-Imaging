@@ -16,7 +16,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.EightBit))
             .When(memory => new ColorChannelCollection<byte>(memory))
-            .Then(collection => collection.Count.Should().Be(1));
+            .Then(channels => channels.Count.Should().Be(1));
         }
 
         [Fact(DisplayName = "Color channel collection GrayAlpha, 8bit")]
@@ -24,7 +24,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.EightBit))
             .When(memory => new ColorChannelCollection<byte>(memory))
-            .Then(collection => collection.Count.Should().Be(2));
+            .Then(channels => channels.Count.Should().Be(2));
         }
 
         [Fact(DisplayName = "Color channel collection Rgb, 8bit")]
@@ -32,7 +32,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.EightBit))
             .When(memory => new ColorChannelCollection<byte>(memory))
-            .Then(collection => collection.Count.Should().Be(3));
+            .Then(channels => channels.Count.Should().Be(3));
         }
 
         [Fact(DisplayName = "Color channel collection Rgba, 8bit")]
@@ -40,7 +40,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.EightBit))
             .When(memory => new ColorChannelCollection<byte>(memory))
-            .Then(collection => collection.Count.Should().Be(4));
+            .Then(channels => channels.Count.Should().Be(4));
         }
 
         [Fact(DisplayName = "Color channel collection Gray, 16bit")]
@@ -48,7 +48,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Gray, MemoryPrecision.SixteenBit))
             .When(memory => new ColorChannelCollection<ushort>(memory))
-            .Then(collection => collection.Count.Should().Be(1));
+            .Then(channels => channels.Count.Should().Be(1));
         }
 
         [Fact(DisplayName = "Color channel collection GrayAlpha, 16bit")]
@@ -56,7 +56,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.GrayAlpha, MemoryPrecision.SixteenBit))
             .When(memory => new ColorChannelCollection<ushort>(memory))
-            .Then(collection => collection.Count.Should().Be(2));
+            .Then(channels => channels.Count.Should().Be(2));
         }
 
         [Fact(DisplayName = "Color channel collection Rgb, 16bit")]
@@ -64,7 +64,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgb, MemoryPrecision.SixteenBit))
             .When(memory => new ColorChannelCollection<ushort>(memory))
-            .Then(collection => collection.Count.Should().Be(3));
+            .Then(channels => channels.Count.Should().Be(3));
         }
 
         [Fact(DisplayName = "Color channel collection Rgba, 16bit")]
@@ -72,7 +72,7 @@ namespace CustomCode.Domain.Imaging.Memory.Tests
         {
             Given(() => new ImageMemory((10, 20), MemoryAlignment.None, ColorChannels.Rgba, MemoryPrecision.SixteenBit))
             .When(memory => new ColorChannelCollection<ushort>(memory))
-            .Then(collection => collection.Count.Should().Be(4));
+            .Then(channels => channels.Count.Should().Be(4));
         }
     }
 }
