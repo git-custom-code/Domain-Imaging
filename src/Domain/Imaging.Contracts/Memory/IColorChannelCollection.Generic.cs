@@ -5,9 +5,9 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Collections.Generic;
 
     /// <summary>
-    /// A collection that grants easy acces to the <see cref="IColorChannel{T}"/>s of an <see cref="IImageMemory"/>.
+    /// A collection that grants easy access to the individual <see cref="IColorChannel{T}"/>s of an <see cref="IImageMemory"/>.
     /// </summary>
-    /// <typeparam name="T"> The precision of a <see cref="IColorChannel{T}"/> entry. </typeparam>
+    /// <typeparam name="T"> The precision of an <see cref="IColorChannel{T}"/> entry. </typeparam>
     public interface IColorChannelCollection<T> : IColorChannelCollection, IEnumerable<IColorChannel<T>>
         where T : struct, IComparable, IConvertible, IFormattable
     {

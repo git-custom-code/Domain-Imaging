@@ -6,7 +6,7 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Collections.Generic;
 
     /// <summary>
-    /// A collection that grants easy acces to the <see cref="IColorChannel{T}"/>s of an <see cref="ImageMemory"/>.
+    /// A collection that grants easy access to the <see cref="IColorChannel{T}"/>s of an <see cref="IImageMemory"/>.
     /// </summary>
     /// <typeparam name="T"> The precision of a <see cref="IColorChannel{T}"/> entry. </typeparam>
     public class ColorChannelCollection<T> : IColorChannelCollection<T>
@@ -29,21 +29,13 @@ namespace CustomCode.Domain.Imaging.Memory
 
         #region Data
 
-        /// <summary>
-        /// Gets the <see cref="IColorChannel"/> at the specified <paramref name="index"/>.
-        /// </summary>
-        /// <param name="index"> The color channel's index. </param>
-        /// <returns> The <see cref="IColorChannel"/> at the specified <paramref name="index"/>. </returns>
+        /// <inheritdoc />
         IColorChannel IColorChannelCollection.this[byte index]
         {
             get { return this[index]; }
         }
 
-        /// <summary>
-        /// Gets the <see cref="IColorChannel{T}"/> at the specified <paramref name="index"/>.
-        /// </summary>
-        /// <param name="index"> The color channel's index. </param>
-        /// <returns> The <see cref="IColorChannel{T}"/> at the specified <paramref name="index"/>. </returns>
+        /// <inheritdoc />
         public IColorChannel<T> this[byte index]
         {
             get
@@ -62,9 +54,7 @@ namespace CustomCode.Domain.Imaging.Memory
         /// </summary>
         private Lazy<List<IColorChannel<T>>> Channels { get; }
 
-        /// <summary>
-        /// Gets the number of <see cref="IColorChannel{T}"/> within the collection.
-        /// </summary>
+        /// <inheritdoc />
         public byte Count { get; }
 
         #endregion
@@ -89,10 +79,7 @@ namespace CustomCode.Domain.Imaging.Memory
             return result;
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        /// <inheritdoc />
         public IEnumerator<IColorChannel<T>> GetEnumerator()
         {
             foreach (var channel in Channels.Value)
@@ -101,28 +88,19 @@ namespace CustomCode.Domain.Imaging.Memory
             }
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        /// <inheritdoc />
         IEnumerator<IColorChannel> IEnumerable<IColorChannel>.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        /// <summary>
-        /// Creates a human readable string representation of this instance.
-        /// </summary>
-        /// <returns> A human readable string representation of this instance. </returns>
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"{Count} channels";

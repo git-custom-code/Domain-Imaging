@@ -5,7 +5,7 @@ namespace CustomCode.Domain.Imaging.Memory
     using System.Collections.Generic;
 
     /// <summary>
-    /// A collection that grants easy acces to the <see cref="IColorChannel"/>s of an <see cref="IImageMemory"/>.
+    /// A collection that grants easy access to the individual <see cref="IColorChannel"/>s of an <see cref="IImageMemory"/>.
     /// </summary>
     public interface IColorChannelCollection : IEnumerable<IColorChannel>
     {
@@ -17,7 +17,7 @@ namespace CustomCode.Domain.Imaging.Memory
         IColorChannel this[byte index] { get; }
 
         /// <summary>
-        /// Gets the number of <see cref="IColorChannel"/> within the collection.
+        /// Gets the number of <see cref="IColorChannel"/>s within the collection.
         /// </summary>
         byte Count { get; }
     }
