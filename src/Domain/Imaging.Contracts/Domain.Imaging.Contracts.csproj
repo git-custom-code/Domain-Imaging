@@ -1,10 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
+    <LangVersion>Latest</LangVersion>
     <Title>CustomCode.Domain.Imaging.Contracts</Title>
     <Description>Imaging library for c#.</Description>
     <RootNamespace>CustomCode.Domain.Imaging</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\net6\Domain.Imaging.Contracts.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
