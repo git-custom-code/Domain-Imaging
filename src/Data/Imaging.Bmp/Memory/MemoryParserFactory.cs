@@ -1,77 +1,76 @@
-namespace CustomCode.Data.Imaging.Memory.Bmp
+namespace CustomCode.Data.Imaging.Memory.Bmp;
+
+using Core.Composition;
+using Imaging.Bmp;
+using System;
+
+/// <summary>
+/// A factory that can be used to create an <see cref="IMemoryParser"/> that can be
+/// used to parse a bitmap's raw pixel data and returns a corresponding <see cref="IImageMemory"/>
+/// representation.
+/// </summary>
+[Export(typeof(IMemoryParserFactory))]
+public sealed class MemoryParserFactory : IMemoryParserFactory
 {
-    using Core.Composition;
-    using Imaging.Bmp;
-    using System;
+    #region Logic
 
-    /// <summary>
-    /// A factory that can be used to create an <see cref="IMemoryParser"/> that can be
-    /// used to parse a bitmap's raw pixel data and returns a corresponding <see cref="IImageMemory"/>
-    /// representation.
-    /// </summary>
-    [Export(typeof(IMemoryParserFactory))]
-    public sealed class MemoryParserFactory : IMemoryParserFactory
+    /// <inheritdoc cref="IMemoryParserFactory" />
+    public IMemoryParser Create(MemoryAlignment alignment, IColorTable colorTable, InfoHeader header)
     {
-        #region Logic
-
-        /// <inheritdoc />
-        public IMemoryParser Create(MemoryAlignment alignment, IColorTable colorTable, InfoHeader header)
+        if (header.BitsPerPixel == 24)
         {
-            if (header.BitsPerPixel == 24)
+            if (colorTable == null)
             {
-                if (colorTable == null)
-                {
-                    return new TwentyFourBitRgbParser(alignment, header.Height, (uint)header.Width);
-                }
-                return new TwentyFourBitRgbPaletteParser(alignment, colorTable, header.Height, (uint)header.Width);
+                return new TwentyFourBitRgbParser(alignment, header.Height, (uint)header.Width);
             }
-            else if (header.BitsPerPixel == 1)
+            return new TwentyFourBitRgbPaletteParser(alignment, colorTable, header.Height, (uint)header.Width);
+        }
+        else if (header.BitsPerPixel == 1)
+        {
+            if (colorTable.IsMonochrome())
             {
-                if (colorTable.IsMonochrome())
+                if (colorTable[0].red == 255)
                 {
-                    if (colorTable[0].red == 255)
-                    {
-                        return new OneBitWhiteBlackParser(alignment, header.Height, (uint)header.Width);
-                    }
-                    return new OneBitBlackWhiteParser(alignment, header.Height, (uint)header.Width);
+                    return new OneBitWhiteBlackParser(alignment, header.Height, (uint)header.Width);
                 }
-                else if (colorTable.IsGrayScale())
-                {
-                    return new OneBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
-                }
-                return new OneBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+                return new OneBitBlackWhiteParser(alignment, header.Height, (uint)header.Width);
             }
-            else if (header.BitsPerPixel == 4)
+            else if (colorTable.IsGrayScale())
             {
-                if (header.Compression == CompressionType.Rle4)
-                {
-                    if (colorTable.IsGrayScale())
-                    {
-                        return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
-                    }
-                    return new FourBitRgbRleParser(alignment, colorTable, header.Height, (uint)header.Width);
-                }
-                else
-                {
-                    if (colorTable.IsGrayScale())
-                    {
-                        return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
-                    }
-                    return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
-                }
+                return new OneBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
             }
-            else if (header.BitsPerPixel == 8)
+            return new OneBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+        }
+        else if (header.BitsPerPixel == 4)
+        {
+            if (header.Compression == CompressionType.Rle4)
             {
-                if (colorTable == null || colorTable.IsGrayScale())
+                if (colorTable.IsGrayScale())
                 {
-                    return new EightBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                    return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
                 }
-                return new EightBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+                return new FourBitRgbRleParser(alignment, colorTable, header.Height, (uint)header.Width);
             }
-
-            throw new NotSupportedException();
+            else
+            {
+                if (colorTable.IsGrayScale())
+                {
+                    return new FourBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+                }
+                return new FourBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
+            }
+        }
+        else if (header.BitsPerPixel == 8)
+        {
+            if (colorTable == null || colorTable.IsGrayScale())
+            {
+                return new EightBitGrayScaleParser(alignment, colorTable, header.Height, (uint)header.Width);
+            }
+            return new EightBitRgbParser(alignment, colorTable, header.Height, (uint)header.Width);
         }
 
-        #endregion
+        throw new NotSupportedException();
     }
+
+    #endregion
 }
