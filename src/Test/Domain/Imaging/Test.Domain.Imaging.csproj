@@ -1,7 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
+    <LangVersion>Latest</LangVersion>
     <IsPackable>false</IsPackable>
     <Title>CustomCode.Test.Domain.Imaging</Title>
     <RootNamespace>CustomCode.Domain.Imaging.Tests</RootNamespace>
