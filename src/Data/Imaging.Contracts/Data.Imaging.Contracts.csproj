@@ -1,18 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
+    <LangVersion>Latest</LangVersion>
     <Title>CustomCode.Data.Imaging.Contracts</Title>
     <Description>Imaging library for c#.</Description>
     <RootNamespace>CustomCode.Data.Imaging</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard1.6\Data.Imaging.Contracts.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.6\Data.Imaging.Contracts.xml</DocumentationFile>
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\net6\Data.Imaging.Contracts.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
