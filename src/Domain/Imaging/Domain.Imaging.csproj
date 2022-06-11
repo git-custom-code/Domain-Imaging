@@ -1,12 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
+    <LangVersion>Latest</LangVersion>
     <Title>CustomCode.Domain.Imaging</Title>
     <Description>Imaging library for c#.</Description>
     <RootNamespace>CustomCode.Domain.Imaging</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\net6\Domain.Imaging.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="CustomCode.Core.Composition" Version="2.3.2" />
   </ItemGroup>
